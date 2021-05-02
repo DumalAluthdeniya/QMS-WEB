@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-header">Question Form</div>
+    <div class="card-body">
+        <form (submit)="AddQuestion()" method="POST" autocomplete="off">
+            <div class="form-group row">
+                <label class="col-sm-2" for="title">Question</label>
+                <div class="col-sm-10">
+                    <input type="text" [(ngModel)]="question.title" name="title" class="form-control" required>
+                </div>
+            </div>
+            <h6>Add matching pairs</h6>
+            <div class="form-row" *ngFor="let item of array(count).fill(0); index as i">
+                <div class="form-group col-md-6">
+                    <input placeholder="Answer {{i + 1}}" [ngModel]="question.answers[i]?.name" (ngModelChange)="dataChanged($event,i,'name')" name="name_{{i}}" type="text" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <input placeholder="Match {{i + 1}}" [ngModel]="question.answers[i]?.matchingText" (ngModelChange)="dataChanged($event,i,'matchingText')" name="matchingText{{i}}" type="text" class="form-control">
+                </div>
+
+            </div>
+
+            <hr>
+            <div class="form-group row">
+                <label class="col-sm-3" for="points">Difficulty Level</label>
+                <div class="col-sm-3 ">
+                    <select [(ngModel)]="question.difficultyLevel" name="correctAnswer" class="form-select">
+                        <option *ngFor="let level of difficultyLevels" value="{{level.id}}">{{level.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Shuffle Mode
+                </label>
+                <div class="col-sm-9">
+                    <div class="i-checks">
+                        <input id="checkboxCustom1" type="radio" value=""> Shuffle Matches Only
+                    </div>
+                    <div class="i-checks">
+                        <input id="checkboxCustom1" type="radio" value=""> Shuffle Clues Only
+                    </div>
+                    <div class="i-checks">
+                        <input id="checkboxCustom1" type="radio" value=""> Shuffle Clues and Matches
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary">
+
+        </form>
+    </div>
+</div>

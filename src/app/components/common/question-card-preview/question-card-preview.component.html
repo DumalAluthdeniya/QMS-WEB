@@ -1,0 +1,71 @@
+<div class="card">
+    <div class="card-body">
+        <h6>{{ question.title }}</h6>
+        <div *ngIf="question.questionType == 1">
+            <ol>
+                <li *ngFor="let answer of question.answers">
+                    {{ answer.name }}
+                    <i *ngIf="answer.isCorrectAnswer" style="color: green" class="fa fa-check"></i>
+                    <i *ngIf="question.givenAnswerId === answer.id" style="color: blue" class="fa fa-user"></i>
+                </li>
+            </ol>
+        </div>
+        <div *ngIf="question.questionType == 2">
+            <ul>
+                <li *ngFor="let answer of question.answers">
+                    {{ answer.name }}
+                    <i *ngIf="answer.isCorrectAnswer" style="color: green" class="fa fa-check"></i>
+                    <i *ngIf="question.givenAnswerId === answer.id" style="color: blue" class="fa fa-user"></i>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="question.questionType == 3">
+            <ul>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr *ngFor="let answer of question.answers">
+                            <td>{{ answer.name }}</td>
+                            <td>{{ answer.matchingText }}</td>
+                            <td *ngIf="isResult">
+                                <i style="color: blue" class="fa fa-user"></i> {{ answer.givenMatchingText }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ul>
+        </div>
+        <div *ngIf="question.questionType == 4">
+            <ul>
+                <li>
+                    {{ question.answers[0].name }}
+                    <i *ngIf="isTest" style="color: green" class="fa fa-check"></i>
+                </li>
+                <li *ngIf="isTest">
+                    {{ question.answers[0].givenMatchingText }}
+                    <i style="color: blue" class="fa fa-user"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-footer" style="height: 3rem">
+        <div class="row">
+            <div *ngIf="!isTest" class="col">
+                <a href="/qb/edit/{{ question.id }}">edit</a> | <a href="#">remove</a>
+            </div>
+
+            <div class="col" *ngIf="isTest && !question.isSelected && showAddQuestion">
+                <button (click)="UpdateTest(question)" class="btn btn-sm btn-success pull-right">
+          Add Question To Test
+        </button>
+            </div>
+            <div class="col" *ngIf="isTest && question.isSelected && showAddQuestion">
+                <button (click)="UpdateTest(question)" class="btn btn-sm btn-warning pull-right">
+          Remove Question From Test
+        </button>
+            </div>
+            <div class="col">
+                <p class="pull-right">Points: {{ question.points }}</p>
+            </div>
+        </div>
+    </div>
+</div>

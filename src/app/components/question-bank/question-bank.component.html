@@ -1,0 +1,74 @@
+<ngx-spinner></ngx-spinner>
+<div class="wrapper">
+    <div id="body" class="active">
+        <app-nav-bar></app-nav-bar>
+        <div class="content">
+            <div class="container-fluid mt-4">
+                <h6><i class="fa fa-sticky-note"></i> Question Bank</h6>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <form>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Question Type</label>
+                                        <select (change)="onTypeChange($event.target.value)" class="form-select" name="" id="">
+                      <option selected value="all">All</option>
+                      <option
+                        *ngFor="let type of questionTypes"
+                        value="{{ type.id }}"
+                      >
+                        {{ type.name }}
+                      </option>
+                    </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Difficulty</label>
+                                        <select (change)="onLevelChange($event.target.value)" class="form-select" name="" id="">
+                      <option selected value="all">All</option>
+                      <option
+                        *ngFor="let type of difficultyLevels"
+                        value="{{ type.id }}"
+                      >
+                        {{ type.name }}
+                      </option>
+                    </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Search term</label>
+                                        <input (input)="onSearchChange($event.target.value)" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a href="qb/new" class="btn btn-sm btn-primary pull-left"><i class="fa fa-plus"></i> Add Questions</a
+            >
+            <p class="label pull-right">
+              No of Questions : <strong>{{ questionsCount }}</strong>
+            </p>
+          </div>
+          <div class="card-body">
+            <div *ngFor="let currentItem of filteredQuestion">
+              <question-card-preview
+                [question]="currentItem"
+                [isTest]="false"
+              ></question-card-preview>
+            </div>
+          </div>
+          <div class="card-footer">
+            <p class="label pull-right">Questions : 5</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="wrapper">
+    <div id="body" class="active">
+        <app-nav-bar></app-nav-bar>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row mt-4">
+                    <div class="col-7">
+                        <h4>
+                            <i class="fa fa-sticky-note"></i>
+                            <a style="text-decoration: none" href="#">
+                {{ link.test.name }}</a
+              >
+            </h4>
+          </div>
+          <div class="col-5">
+            <a
+              href="/tests/edit/{{ currentTestId }}"
+              class="btn btn-md btn-info pull-right"
+              ><i class="fa fa-edit"></i> Edit Test</a
+            >
+            <a
+              href="results/{{ link.id }}"
+              class="btn btn-md btn-warning pull-right"
+              ><i class="fa fa-check"></i> View Results</a
+            >
+            <a
+              target="_blank"
+              href="{{ link.url }}"
+              class="btn btn-md btn-success pull-right"
+              ><i class="fa fa-undo"></i> Preview Test</a
+            >
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col">
+            <div class="alert alert-secondary">
+              <h6 class="alert-title">Copy Link</h6>
+              <div
+                style="
+                  text-align: center;
+                  padding-top: 4px;
+                  background-color: white;
+                  width: 100%;
+                  height: 40px;
+                  border: 0.5px solid black;
+                  border-radius: 10px;
+                "
+              >
+                {{ link.url }}
+              </div>
+              <p class="mt-2">
+                Copy this link and email it to your Test Takers, or, you can
+                post it online where they can access it.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <h4>Reference name for this Link</h4>
+            <input
+              [(ngModel)]="link.name"
+              name="linkName"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-6">
+            <h4>Test Access Details</h4>
+            <div class="access-details">
+              <div class="test">
+                <p>Time Limit (minutes)</p>
+                <div style="position: relative">
+                  <input
+                    class="form-control"
+                    [(ngModel)]="link.timeLimit"
+                    name="timeLimit"
+                    type="number"
+                    value="0"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="access-details">
+              <div class="test">
+                <p>Password</p>
+                <div style="position: relative">
+                  <input
+                    class="form-control"
+                    [(ngModel)]="link.password"
+                    name="password"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button (click)="AddLink()" class="btn btn-sm btn-primary mt-5">
+          Save Changes
+        </button>
+        <button class="btn btn-sm btn-secondary mt-5">Cancel</button>
+        <a *ngIf="!link.test" class="btn btn-sm btn-warning mt-5"
+          >Delete Test</a
+        >
+        <div *ngIf="link.test && link.id" class="row mt-4">
+          <div class="col-6">
+            <div class="card card-danger">
+              <div class="card-header">Want to delete this Link?</div>
+              <div class="card-body">
+                <p><i class="fa fa-sticky-note"></i> {{ link.test.name }}</p>
+                <p>
+                  This has Tests assigned. Please delete then first and come
+                  here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

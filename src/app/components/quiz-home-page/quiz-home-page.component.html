@@ -1,0 +1,65 @@
+<div class="wrapper">
+    <div id="body" class="active">
+        <div class="content">
+            <div class="container-fluid mt-5">
+                <div *ngIf="!validated" class="row">
+                    <div class="col-6">
+                        <h1>Welcome to QuizMaker.</h1>
+                        <ul>
+                            <li>Please fill the following infomation to continue.</li>
+                            <li>
+                                Please fill the same email and User Name if you are returning to this quiz. Otherwise your previous answers will not be shown.
+                            </li>
+                        </ul>
+                        <form method="POST" autocomplete="off">
+                            <div class="form-group">
+                                <input type="text" [(ngModel)]="user.name" name="QuizUserName" class="form-control" placeholder="Your Name" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" [(ngModel)]="user.email" name="QuizUserEmail" class="form-control" placeholder="Your Email" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" [(ngModel)]="user.enrollment" name="QuizUserEmail" class="form-control" placeholder="Your Enrollment" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" [(ngModel)]="user.password" name="quizPassword" class="form-control" placeholder="Quiz Password" required />
+                            </div>
+                            <button (click)="StartQuiz()" type="submit" class="btn btn-primary shadow-2 mb-4">
+                Start
+              </button>
+                        </form>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">Instructions</div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>No of questions : 3</li>
+                                    <li *ngIf="timeLimit === 0">Has no time limit</li>
+                                    <li *ngIf="timeLimit > 0">
+                                        You have only <strong>{{ timeLimit }} minutes</strong>.
+                                    </li>
+                                    <li>No of attempts : Unmilited</li>
+                                    <li>Can save and finish later : Yes</li>
+                                    <li>Will allow you to come back and change</li>
+                                    <li>
+                                        Will not allow you to finish with any questions unattempted.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="validated && !isSubmitted">
+                    <quiz-question (submit)="onQuizSubmit($event)" (timer)="onTimerEventChange($event)" (answer)="onAnswerChange($event)" (next)="onNextClick($event)" (previous)="onPreviousClick($event)" [question]="currentQuestion" [canSubmit]="canSubmitQuiz" [questionList]="questionsList"
+                        [timerConfig]="timerConfig" [hasTimeLimit]="hasTimeLimit">
+                    </quiz-question>
+                </div>
+                <div *ngIf="isSubmitted" class="text-center">
+                    <h3>Thank you. Your Quiz submitted successfully.</h3>
+                    <h6>Your marks will be notified through an e-mail.</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

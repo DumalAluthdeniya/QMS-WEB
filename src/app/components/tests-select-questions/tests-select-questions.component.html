@@ -1,0 +1,49 @@
+<!-- <button (click)="GetQuestions()" class="btn btn-sm btn-info">
+  <i class="fa fa-sync"></i> Refresh
+</button> -->
+<div class="card">
+    <div class="card-header">
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">Question Type</label>
+                        <select (change)="onTypeChange($event.target.value)" class="form-select" name="" id="">
+              <option selected value="all">All</option>
+              <option *ngFor="let type of questionTypes" value="{{ type.id }}">
+                {{ type.name }}
+              </option>
+            </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">Difficulty</label>
+                        <select (change)="onLevelChange($event.target.value)" class="form-select" name="" id="">
+              <option selected value="all">All</option>
+              <option
+                *ngFor="let type of difficultyLevels"
+                value="{{ type.id }}"
+              >
+                {{ type.name }}
+              </option>
+            </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">Search term</label>
+                        <input (input)="onSearchChange($event.target.value)" type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div *ngFor="let currentItem of filteredQuestion">
+            <question-card-preview [showAddQuestion]="true" [question]="currentItem" [isTest]="true" (addQuestionToTestEvent)="AddQuestionToTest($event)"></question-card-preview>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,247 @@
+<div class="wrapper">
+    <div id="body" class="active">
+        <app-nav-bar></app-nav-bar>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row mt-5">
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-4">
+                                <h4>
+                                    <i class="fa fa-sticky-note"></i>
+                                    <a style="text-decoration: none" href="#"> {{ test.name }}</a>
+                                </h4>
+                            </div>
+                            <div class="col-8">
+                                <a href="tests/new" class="btn btn-md btn-success"><i class="fa fa-plus"></i> Add New Test</a
+                >
+                <a
+                  *ngIf="currentTestId"
+                  href="tests/{{ currentTestId }}/links/new"
+                  class="btn btn-md btn-info"
+                  ><i class="fa fa-link"></i> Create Link</a
+                >
+                <a href="results/1" class="btn btn-md btn-danger"
+                  ><i class="fa fa-times"></i> Delete Test</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-header">Available Links</div>
+              <div class="card-body">
+                <ul>
+                  <li *ngFor="let item of test.links">
+                    <a href="/tests/{{ test.id }}/links/{{ item.id }}">{{
+                      item.name
+                    }}</a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        <form (submit)="AddTest()" method="POST" action="">
+                            <div class="form-group">
+                                <label class="label" for="name">Test Name</label>
+                                <input [(ngModel)]="test.name" name="name" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group">
+                                <label class="label" for="introduction">Test Introduction</label
+                >
+                <textarea
+                  [(ngModel)]="test.introduction"
+                  name="introduction"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <button
+                *ngIf="!currentTestId"
+                type="submit"
+                class="btn btn-lg btn-primary"
+              >
+                ADD
+              </button>
+              <button
+                *ngIf="currentTestId"
+                type="submit"
+                class="btn btn-lg btn-primary"
+              >
+                UPDATE
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <h3>Add Questions</h3>
+          <div class="col-md-12 col-lg-12">
+            <div class="card">
+              <div class="card-header">Questions</div>
+              <div class="card-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      id="home-tab"
+                      data-toggle="tab"
+                      href="#home"
+                      role="tab"
+                      aria-controls="home"
+                      aria-selected="true"
+                      >Test Questions</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="profile-tab"
+                      data-toggle="tab"
+                      href="#profile"
+                      role="tab"
+                      aria-controls="profile"
+                      aria-selected="false"
+                      >Test Assignments</a
+                    >
+                  </li>
+                </ul>
+                <div class="row">
+                  <div class="col">
+                    <div class="tab-content" id="myTabContent">
+                      <div
+                        class="tab-pane fade active show"
+                        id="home"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
+                      >
+                        <div class="row">
+                          <div class="col">
+                            <!-- <div class="dropdown">
+                                                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                              Add Questions
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                <a class="dropdown-item" href="#"><i class="fa fa-plus"></i> Add New Question</a>
+                                                                <a class="dropdown-item" href="/tests/qb"><i class="fa fa-recycle"></i> Reuse from bank</a>
+                                                            </div>
+                                                        </div> -->
+
+                            <p
+                              class="mt-1"
+                              *ngIf="selectedQuestions.length <= 0"
+                            >
+                              No questions selected. Please select from question
+                              bank.
+                            </p>
+
+                            <div
+                              class="mt-1"
+                              *ngFor="let currentItem of selectedQuestions"
+                            >
+                              <question-card-preview
+                                [question]="currentItem"
+                                [isTest]="true"
+                                [showAddQuestion]="false"
+                              ></question-card-preview>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="profile"
+                        role="tabpanel"
+                        aria-labelledby="profile-tab"
+                      >
+                        Food truck fixie locavore, accusamus mcsweeney's marfa
+                        nulla single-origin coffee squid. Exercitation +1 labore
+                        velit, blog sartorial PBR leggings next level wes
+                        anderson artisan four loko farm-to-table craft beer
+                        twee. Qui photo booth letterpress, commodo enim craft
+                        beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
+                        PBR. Homo nostrud organic, assumenda labore aesthetic
+                        magna delectus mollit. Keytar helvetica VHS salvia yr,
+                        vero magna velit sapiente labore stumptown. Vegan fanny
+                        pack odio cillum wes anderson 8-bit, sustainable jean
+                        shorts beard ut DIY ethical culpa terry richardson
+                        biodiesel. Art party scenester stumptown, tumblr butcher
+                        vero sint qui sapiente accusamus tattooed echo park.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-header">Add Questions</div>
+                      <div class="card-body">
+                        <ul
+                          class="nav nav-pills mb-3"
+                          id="pills-tab"
+                          role="tablist"
+                        >
+                          <li class="nav-item">
+                            <a
+                              (click)="refreshQuestions()"
+                              class="nav-link active"
+                              id="pills-home-tab"
+                              data-toggle="pill"
+                              href="#pills-home"
+                              role="tab"
+                              aria-controls="pills-home"
+                              aria-selected="true"
+                              >Question Bank</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a
+                              class="nav-link"
+                              id="pills-profile-tab"
+                              data-toggle="pill"
+                              href="#pills-profile"
+                              role="tab"
+                              aria-controls="pills-profile"
+                              aria-selected="false"
+                              >Add New Question</a
+                            >
+                          </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                          <div
+                            class="tab-pane fade active show"
+                            id="pills-home"
+                            role="tabpanel"
+                            aria-labelledby="pills-home-tab"
+                          >
+                            <tests-select-questions
+                              *ngIf="enabled"
+                              (addQuestionToTestEvent)="
+                                AddQuestionToTest($event)
+                              "
+                            ></tests-select-questions>
+                          </div>
+                          <div
+                            class="tab-pane fade"
+                            id="pills-profile"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab"
+                          >
+                            <add-questions-form
+                              [fromTest]="true"
+                              (addQuestion)="onQuestionAdd($event)"
+                            ></add-questions-form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

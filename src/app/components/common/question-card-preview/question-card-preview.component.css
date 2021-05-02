@@ -1,0 +1,11 @@
+.question-card {
+    background-color: honeydew;
+    border: 1px solid black;
+    padding-left: 0px;
+}
+
+.question-header {
+    width: 100%;
+    background-color: rgb(128, 128, 128, 0.2);
+    padding: 0 5px;
+}
