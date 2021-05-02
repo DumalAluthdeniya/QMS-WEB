@@ -2,9 +2,9 @@
     <div id="body" class="active">
         <div class="content">
             <div class="mt-5 d-flex flex-column align-items-center">
-                <div *ngIf="hasTimeLimit" style="font-size: xx-large; font-weight: 800">
+                <div style="font-size: xx-large; font-weight: 800">
                     Time Left :
-                    <countdown [config]="timerConfig" (event)="handleEvent($event)"></countdown>
+                    <countdown #cd [config]="{ leftTime: timeLimit * 60, notify: [2 * 60, 5 * 60] }" (event)="handleEvent($event)"></countdown>
                 </div>
                 <h3>Quiz 1</h3>
                 <div class="col-6 mt-2">

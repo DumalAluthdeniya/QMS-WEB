@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LinkService } from 'src/app/services/link.service';
 import { QuizService } from 'src/app/services/quiz.service';
 import { formatDate } from '@angular/common';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-quiz-home-page',
@@ -58,7 +59,6 @@ export class QuizHomePageComponent implements OnInit {
         this.linkId = link.id;
         this.hasTimeLimit = link.timeLimit > 0;
         this.timeLimit = link.timeLimit;
-        console.log(this.timeLimit);
       },
       (err) => {
         alert(err.error);
@@ -107,19 +107,19 @@ export class QuizHomePageComponent implements OnInit {
               ).completed = true;
             }
 
-            console.log(this.questionsList);
-
             this.questionsList.map((qu) => {
               if (qu.questionType == 3) {
                 if (
-                  qu.answers.filter((a) => a.givenMatchingText == null)
-                    .length <= 0
+                  qu.answers.filter(
+                    (a: { givenMatchingText: any }) =>
+                      a.givenMatchingText == null
+                  ).length <= 0
                 ) {
                   qu.completed = true;
                 } else {
                   qu.completed = false;
                 }
-              } else if (qu.questionType == 4) {
+              } else if (qu.questionType == 4 && qu.answers.length > 0) {
                 if (qu.answers[0].givenMatchingText != null)
                   qu.completed = true;
               } else if (qu.givenAnswerId != -1) {
@@ -132,18 +132,14 @@ export class QuizHomePageComponent implements OnInit {
             }
 
             //timer
-            if (link.timeLimit == 0) {
+            if (this.timeLimit == 0) {
               this.hasTimeLimit = false;
             } else {
               this.hasTimeLimit = true;
-              this.timerConfig = {
-                leftTime: link.timeLimit * 60,
-                notify: [1 * 60, 2 * 60, 5 * 60],
-              };
             }
           },
           (err) => {
-            alert(err.error);
+            alert(err.message);
           }
         );
     } else {
@@ -227,6 +223,7 @@ export class QuizHomePageComponent implements OnInit {
   }
 
   onTimerEventChange(timerEvent: any = {}) {
+    console.log(timerEvent);
     if (timerEvent.action === 'notify') {
       console.log(timerEvent.left);
       this.toastr.info(

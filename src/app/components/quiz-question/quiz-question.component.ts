@@ -5,7 +5,9 @@ import {
   Output,
   EventEmitter,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
+import { CountdownComponent } from 'ngx-countdown';
 
 @Component({
   selector: 'quiz-question',
@@ -13,11 +15,12 @@ import {
   styleUrls: ['./quiz-question.component.css'],
 })
 export class QuizQuestionComponent implements OnInit {
+  // @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
   @Input() question: any = {};
   @Input() canSubmit: boolean;
   @Input() hasTimeLimit: boolean;
+  @Input() timeLimit: 0;
   @Input() questionList: any;
-  @Input() timerConfig: any = {};
   @Output() next = new EventEmitter<boolean>();
   @Output() previous = new EventEmitter<boolean>();
   @Output() answer = new EventEmitter<any>();
@@ -27,20 +30,15 @@ export class QuizQuestionComponent implements OnInit {
   matchingTextList: any = [];
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.questionList);
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
     this.matchingTextList = [];
     if (this.question.questionType == 3) {
-      this.question.answers.map((a) => {
+      this.question.answers.map((a: any) => {
         this.matchingTextList.push(a.matchingText);
       });
     }
-
-    // console.log(this.canSubmit);
-    console.log(this.questionList);
   }
 
   SetCurrentQuestion(question: any, i) {
@@ -52,10 +50,10 @@ export class QuizQuestionComponent implements OnInit {
       });
     }
     this.question = question;
-    console.log(this.question);
   }
 
   onItemChange(data: any) {
+    console.log(data);
     this.answer.emit(data);
   }
 

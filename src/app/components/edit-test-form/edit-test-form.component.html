@@ -13,23 +13,28 @@
                                 </h4>
                             </div>
                             <div class="col-8">
-                                <a href="tests/new" class="btn btn-md btn-success"><i class="fa fa-plus"></i> Add New Test</a
+                                <a *ngIf="currentTestId" href="tests/new" class="btn btn-md btn-success pull-right"><i class="fa fa-plus"></i> Add New Test</a
                 >
                 <a
                   *ngIf="currentTestId"
                   href="tests/{{ currentTestId }}/links/new"
-                  class="btn btn-md btn-info"
+                  class="btn btn-md btn-info pull-right"
                   ><i class="fa fa-link"></i> Create Link</a
                 >
-                <a href="results/1" class="btn btn-md btn-danger"
+                <a
+                  *ngIf="currentTestId"
+                  href="results/1"
+                  class="btn btn-md btn-danger pull-right"
                   ><i class="fa fa-times"></i> Delete Test</a
                 >
               </div>
             </div>
           </div>
-          <div class="col-4">
+          <div *ngIf="currentTestId" class="col-4">
             <div class="card">
-              <div class="card-header">Available Links</div>
+              <div class="card-header">
+                <h5>Test Link</h5>
+              </div>
               <div class="card-body">
                 <ul>
                   <li *ngFor="let item of test.links">

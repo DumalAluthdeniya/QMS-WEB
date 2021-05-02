@@ -40,7 +40,7 @@
                     {{ question.answers[0].name }}
                     <i *ngIf="isTest" style="color: green" class="fa fa-check"></i>
                 </li>
-                <li *ngIf="isTest">
+                <li *ngIf="!isTest || isResult">
                     {{ question.answers[0].givenMatchingText }}
                     <i style="color: blue" class="fa fa-user"></i>
                 </li>
