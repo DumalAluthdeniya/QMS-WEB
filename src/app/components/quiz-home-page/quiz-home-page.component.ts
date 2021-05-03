@@ -61,7 +61,7 @@ export class QuizHomePageComponent implements OnInit {
         this.timeLimit = link.timeLimit;
       },
       (err) => {
-        alert(err.error);
+        alert(err.message);
       }
     );
   }
@@ -88,15 +88,27 @@ export class QuizHomePageComponent implements OnInit {
         this.attempId = attempId;
       });
 
-      this.validated = true;
-
       this.linkService
         .getLinkByCodeAndEmail(this.code, this.user.email)
         .subscribe(
           (link: any) => {
+            console.log(link);
+            if (link.quizAttempts[0].submitted) {
+              alert(
+                'Your quiz is already submitted. You are not allowed to attempt again.'
+              );
+              this.validated = false;
+              return false;
+            }
+
+            this.validated = true;
+
             this.link = link;
             this.testId = link.test.id;
-            this.questionsList = link.test.questionsList;
+            this.questionsList = link.test.questionsList.sort(
+              () => Math.random() - 0.1
+            );
+            console.log(this.questionsList);
             this.totalQuestions = this.questionsList.length;
             this.currentQuestion = this.questionsList[0];
             this.currentQuestion.currentNo = 1;
@@ -106,7 +118,6 @@ export class QuizHomePageComponent implements OnInit {
                 (qq) => qq == this.currentQuestion
               ).completed = true;
             }
-
             this.questionsList.map((qu) => {
               if (qu.questionType == 3) {
                 if (
@@ -223,7 +234,6 @@ export class QuizHomePageComponent implements OnInit {
   }
 
   onTimerEventChange(timerEvent: any = {}) {
-    console.log(timerEvent);
     if (timerEvent.action === 'notify') {
       console.log(timerEvent.left);
       this.toastr.info(
@@ -251,7 +261,6 @@ export class QuizHomePageComponent implements OnInit {
       ),
     };
 
-    console.log(submitObj);
     this.quizService.submitQuiz(submitObj).subscribe((res: any) => {
       this.isSubmitted = true;
     });

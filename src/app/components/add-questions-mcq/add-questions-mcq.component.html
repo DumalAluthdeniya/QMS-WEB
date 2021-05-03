@@ -3,48 +3,73 @@
     <div class="card-body">
         <form (submit)="AddQuestion()" method="POST" autocomplete="off">
             <div class="form-group row">
+                <label class="col-sm-2" for="title">Topic</label>
+                <div class="col-sm-10">
+                    <input type="text" [(ngModel)]="question.topic" name="title" class="form-control" required />
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-2" for="title">Question</label>
                 <div class="col-sm-10">
-                    <input type="text" [(ngModel)]="question.title" name="title" class="form-control" required>
+                    <input type="text" [(ngModel)]="question.title" name="title" class="form-control" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2" for="answer1">Answers</label>
                 <div class="col-sm-10">
                     <div class="row mt-1" *ngFor="let item of array(count).fill(0); index as i">
-                        <div class=" col-8">
-                            <input placeholder="Answer {{i + 1}}" [ngModel]="question.answers[i]?.name" (ngModelChange)="dataChanged($event,i,'name')" name="name_{{i}}" type="text" class="form-control">
+                        <div class="col-8 d-flex">
+                            <input placeholder="Answer {{ i + 1 }}" [ngModel]="question.answers[i]?.name" (ngModelChange)="dataChanged($event, i, 'name')" name="name_{{ i }}" type="text" class="form-control" />
+                            <span (click)="RemoveAnswerFieds(i)" class="">
+                <i
+                  class="fa fa-times ml-1"
+                  style="color: rgb(221, 12, 12); cursor: pointer"
+                ></i>
+              </span>
                         </div>
                     </div>
+                    <button type="button" (click)="AddMoreAnswers()" class="btn btn-sm btn-primary mt-1">
+            + Add More
+          </button>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2" for="points">Correct Answer</label>
-                <div class="col-sm-3 ">
+                <div class="col-sm-3">
                     <select required (change)="setCorrectAnswer()" [(ngModel)]="correctAnswerIndex" name="correctAnswer" class="form-select">
-                        <option *ngFor="let item of array(count).fill(0); index as i" value="{{i}}">{{i + 1}}</option>
-                    </select>
+            <option
+              *ngFor="let item of array(count).fill(0); index as i"
+              value="{{ i }}"
+            >
+              {{ i + 1 }}
+            </option>
+          </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2" for="points">Difficulty Level</label>
-                <div class="col-sm-3 ">
+                <div class="col-sm-3">
                     <select [(ngModel)]="question.difficultyLevel" name="correctAnswer" class="form-select">
-                        <option *ngFor="let level of difficultyLevels" value="{{level.id}}">{{level.name}}</option>
-                    </select>
+            <option
+              *ngFor="let level of difficultyLevels"
+              value="{{ level.id }}"
+            >
+              {{ level.name }}
+            </option>
+          </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2" for="points">Points</label>
                 <div class="col-sm-3">
-                    <input type="number" [(ngModel)]="question.points" name="points" class="form-control" value="0">
+                    <input type="number" [(ngModel)]="question.points" name="points" class="form-control" value="0" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2">Settings</label>
                 <div class="col-sm-10">
                     <div class="i-checks">
-                        <input type="checkbox" [(ngModel)]="question.randomizeAnswers" name="randomizeAnswers" value=""> Randomize Answers
+                        <input type="checkbox" [(ngModel)]="question.randomizeAnswers" name="randomizeAnswers" value="" /> Randomize Answers
                     </div>
                 </div>
             </div>

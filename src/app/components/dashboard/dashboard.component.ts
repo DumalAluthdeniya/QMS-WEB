@@ -15,10 +15,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.testService.getAll().subscribe((testsList: any) => {
-      this.tests = testsList;
-      console.log(this.tests);
-      this.spinner.hide();
-    });
+    this.testService.getAll().subscribe(
+      (testsList: any) => {
+        this.tests = testsList;
+
+        this.spinner.hide();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

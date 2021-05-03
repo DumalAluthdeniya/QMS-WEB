@@ -23,6 +23,18 @@ export class AddQuestionsMatchingComponent implements OnInit {
     this.question.answers = [];
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
   }
+  AddMoreAnswers() {
+    this.count++;
+  }
+
+  RemoveAnswerFieds(i: number) {
+    this.count--;
+    if (this.question.answers.length > 0) {
+      var xx = this.question.answers[i];
+      this.question.answers.splice(i, 1);
+      console.log(this.question.answers);
+    }
+  }
 
   dataChanged(event, i, type) {
     if (type === 'name')

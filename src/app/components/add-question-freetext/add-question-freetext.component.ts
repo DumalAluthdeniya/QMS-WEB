@@ -18,6 +18,7 @@ export class AddQuestionFreetextComponent implements OnInit {
     title: '',
     questionType: 4,
     difficultyLevel: 0,
+    topic: '',
   };
   answer: any;
   difficultyLevels: { id: number; name: string }[];
@@ -50,6 +51,7 @@ export class AddQuestionFreetextComponent implements OnInit {
             title: '',
             questionType: 4,
             difficultyLevel: 0,
+            topic: '',
           };
           this.answer = '';
         },
