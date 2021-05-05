@@ -65,18 +65,36 @@ export class AddQuestionsMcqComponent implements OnInit {
   }
 
   AddQuestion() {
-    if (this.question.answers.length > 0) {
-      this.questionService.add(this.question).subscribe(
-        (qId: any) => {
-          this.toastr.info('MCQ Successfully Added');
-          if (this.fromTest) {
-            this.question.id = qId;
-            this.question.givenAnswerId = null;
-            this.addQuestion.emit(this.question);
-          }
+    if (this.question.id) {
+      this.UpdateQuestion();
+    } else {
+      if (this.question.answers.length > 0) {
+        this.questionService.add(this.question).subscribe(
+          (qId: any) => {
+            this.toastr.info('MCQ Successfully Added');
+            if (this.fromTest) {
+              this.question.id = qId;
+              this.question.givenAnswerId = null;
+              this.addQuestion.emit(this.question);
+            }
 
-          this.question = {};
-          this.question.answers = [];
+            this.question = {};
+            this.question.answers = [];
+          },
+          (err) => {
+            this.toastr.error(err);
+          }
+        );
+      } else {
+        this.toastr.error('Please add at lease one answer');
+      }
+    }
+  }
+  UpdateQuestion() {
+    if (this.question.answers.length > 0) {
+      this.questionService.update(this.question.id, this.question).subscribe(
+        (qId: any) => {
+          this.toastr.info('MCQ updated successfully');
         },
         (err) => {
           this.toastr.error(err);

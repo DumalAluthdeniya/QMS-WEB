@@ -31,6 +31,7 @@ export class AddQuestionsFormComponent implements OnInit {
       this.questionService
         .get(this.currentQuestionId)
         .subscribe((question: any) => {
+          console.log(question);
           this.question = question;
           this.type = question.questionType;
         });

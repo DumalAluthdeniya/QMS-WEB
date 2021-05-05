@@ -52,17 +52,36 @@ export class AddQuestionsMatchingComponent implements OnInit {
   }
 
   AddQuestion() {
-    if (this.question.answers.length > 0) {
-      this.questionService.add(this.question).subscribe(
-        (qid: any) => {
-          if (this.fromTest) {
-            this.question.id = qid;
-            this.question.givenAnswerId = null;
-            this.addQuestion.emit(this.question);
+    if (this.question.id) {
+      this.UpdateQuestion();
+    } else {
+      if (this.question.answers.length > 0) {
+        this.questionService.add(this.question).subscribe(
+          (qid: any) => {
+            if (this.fromTest) {
+              this.question.id = qid;
+              this.question.givenAnswerId = null;
+              this.addQuestion.emit(this.question);
+            }
+            this.toastr.info('Matching Question Successfully Added');
+            this.question = {};
+            this.question.answers = [];
+          },
+          (err) => {
+            this.toastr.error(err);
           }
-          this.toastr.info('Matching Question Successfully Added');
-          this.question = {};
-          this.question.answers = [];
+        );
+      } else {
+        this.toastr.error('Please add at lease one answer');
+      }
+    }
+  }
+
+  UpdateQuestion() {
+    if (this.question.answers.length > 0) {
+      this.questionService.update(this.question.id, this.question).subscribe(
+        (qId: any) => {
+          this.toastr.info('MCQ updated successfully ');
         },
         (err) => {
           this.toastr.error(err);

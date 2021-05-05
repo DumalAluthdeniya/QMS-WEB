@@ -16,7 +16,7 @@
                                 <a *ngIf="currentTestId" href="tests/new" class="btn btn-md btn-success pull-right"><i class="fa fa-plus"></i> Add New Test</a
                 >
                 <a
-                  *ngIf="!currentTestId"
+                  *ngIf="test.links.length <= 0"
                   href="tests/{{ currentTestId }}/links/new"
                   class="btn btn-md btn-info pull-right"
                   ><i class="fa fa-link"></i> Create Link</a
