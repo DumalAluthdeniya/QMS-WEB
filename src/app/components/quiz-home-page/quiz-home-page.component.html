@@ -51,8 +51,8 @@
                     </div>
                 </div>
                 <div *ngIf="validated && !isSubmitted">
-                    <quiz-question (submit)="onQuizSubmit($event)" (timer)="onTimerEventChange($event)" (answer)="onAnswerChange($event)" (next)="onNextClick($event)" (previous)="onPreviousClick($event)" [question]="currentQuestion" [canSubmit]="canSubmitQuiz" [questionList]="questionsList"
-                        [timeLimit]="timeLimit" [hasTimeLimit]="hasTimeLimit">
+                    <quiz-question (stopwatch)="onStopWatchChange($event)" (submit)="onQuizSubmit($event)" (timer)="onTimerEventChange($event)" (answer)="onAnswerChange($event)" (next)="onNextClick($event)" (previous)="onPreviousClick($event)" [question]="currentQuestion"
+                        [canSubmit]="canSubmitQuiz" [questionList]="questionsList" [timeLimit]="timeLimit" [hasTimeLimit]="hasTimeLimit">
                     </quiz-question>
                 </div>
                 <div *ngIf="isSubmitted" class="text-center">

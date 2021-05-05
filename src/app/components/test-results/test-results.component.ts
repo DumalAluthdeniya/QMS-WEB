@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LinkService } from 'src/app/services/link.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-test-results',
@@ -16,15 +17,19 @@ export class TestResultsComponent implements OnInit {
 
   constructor(
     private linkService: LinkService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
+
     this.route.params.subscribe((params: Params) => {
       this.currentLinkId = params.id;
     });
     this.linkService.get(this.currentLinkId).subscribe((res: any) => {
       this.link = res;
+      this.spinner.hide();
     });
   }
 
@@ -36,7 +41,6 @@ export class TestResultsComponent implements OnInit {
       .getLinkByCodeAndEmail(this.link.code, attempt.email)
       .subscribe((res: any) => {
         this.link = res;
-        console.log(this.link);
       });
 
     let questionsList = this.link.test.questionsList;

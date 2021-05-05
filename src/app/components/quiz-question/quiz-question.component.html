@@ -6,11 +6,24 @@
                     Time Left :
                     <countdown #cd [config]="{ leftTime: timeLimit * 60, notify: [2 * 60, 5 * 60] }" (event)="handleEvent($event)"></countdown>
                 </div>
+                <!-- <timer [start]="_start" [showTimerControls]="true"></timer> -->
+                <section class="timer-counter-label">
+                    <div *ngIf="counter" [ngClass]="{ blink: !running }">
+                        <span>{{ minutes }}:</span><span>{{ seconds }}:</span>
+                        <span>{{ milliseconds }}</span>
+                    </div>
+                    <div *ngIf="!counter">
+                        <span>{{ minutes }}:</span><span>{{ seconds }}:</span>
+                        <span>{{ milliseconds }}</span>
+                    </div>
+                </section>
                 <h3>Quiz 1</h3>
                 <div class="col-6 mt-2">
                     <div class="card">
                         <div class="card-header">
-                            <h6>Question {{ question.currentNo }} of 3</h6>
+                            <h6>
+                                Question {{ question.currentNo }} of {{ questionList.length }}
+                            </h6>
                         </div>
                         <div class="card-body">
                             <h6>{{ question.title }}</h6>
@@ -97,6 +110,7 @@
             Next
           </button>
         </div>
+
         <button
           (click)="SubmitQuiz()"
           *ngIf="canSubmit"
@@ -117,7 +131,9 @@
                 <p style="color: rgb(72, 23, 206)" *ngIf="item.completed">
                   Answered
                 </p>
+
                 <p style="color: red" *ngIf="!item.completed">Unaswered</p>
+                <p>{{ item.timer }}</p>
               </div>
             </div>
           </div>

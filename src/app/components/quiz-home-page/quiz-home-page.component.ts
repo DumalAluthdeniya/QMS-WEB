@@ -92,8 +92,10 @@ export class QuizHomePageComponent implements OnInit {
         .getLinkByCodeAndEmail(this.code, this.user.email)
         .subscribe(
           (link: any) => {
-            console.log(link);
-            if (link.quizAttempts[0].submitted) {
+            if (
+              link.quizAttempts.find((a) => a.email == this.user.email)
+                .submitted
+            ) {
               alert(
                 'Your quiz is already submitted. You are not allowed to attempt again.'
               );
@@ -108,10 +110,10 @@ export class QuizHomePageComponent implements OnInit {
             this.questionsList = link.test.questionsList.sort(
               () => Math.random() - 0.1
             );
-            console.log(this.questionsList);
             this.totalQuestions = this.questionsList.length;
             this.currentQuestion = this.questionsList[0];
             this.currentQuestion.currentNo = 1;
+            this.currentQuestion.counter = 0;
             if (this.currentQuestion.givenAnswerId != -1) {
               this.hasSelectedAnswer = true;
               this.questionsList.find(
@@ -119,6 +121,7 @@ export class QuizHomePageComponent implements OnInit {
               ).completed = true;
             }
             this.questionsList.map((qu) => {
+              qu.counter = 0;
               if (qu.questionType == 3) {
                 if (
                   qu.answers.filter(
@@ -138,8 +141,14 @@ export class QuizHomePageComponent implements OnInit {
               }
             });
 
-            if (this.questionsList.filter((ql) => ql.completed == false) <= 0) {
+            if (
+              this.questionsList.filter(
+                (ql) => ql.completed == undefined || ql.completed == false
+              ) <= 0
+            ) {
               this.canSubmitQuiz = true;
+            } else {
+              this.canSubmitQuiz = false;
             }
 
             //timer
@@ -160,7 +169,6 @@ export class QuizHomePageComponent implements OnInit {
   }
 
   onAnswerChange(data) {
-    console.log(data);
     this.hasSelectedAnswer = true;
     data.quizAttemptId = this.attempId;
     data.testId = this.testId;
@@ -199,7 +207,11 @@ export class QuizHomePageComponent implements OnInit {
       this.questionsList.find((q) => q.id == data.questionId).givenAnswerId =
         data.givenAnswerId;
     }
-    if (this.questionsList.filter((ql) => ql.completed == false) <= 0) {
+    if (
+      this.questionsList.filter(
+        (ql) => ql.completed == undefined || ql.completed == false
+      ) <= 0
+    ) {
       this.canSubmitQuiz = true;
     } else {
       this.canSubmitQuiz = false;
@@ -207,11 +219,27 @@ export class QuizHomePageComponent implements OnInit {
     this.quizService.addQuizAnswer(data).subscribe((res: any) => {});
   }
 
-  onNextClick(state) {
+  onNextClick(data: any) {
     if (this.hasSelectedAnswer) {
       let currentNo = this.currentQuestion.currentNo;
       let index: number = this.questionsList.indexOf(this.currentQuestion);
+
+      this.questionsList[index].counter = data.counter;
+      this.questionsList[index].timer = data.lapTime;
+
+      let addQuizAnswer = {
+        quizAttemptId: this.attempId,
+        testId: this.testId,
+        questionId: this.currentQuestion.id,
+        duration: data.lapTime,
+      };
+
+      this.quizService
+        .addQuizAnswerDuration(addQuizAnswer)
+        .subscribe((res: any) => {});
+
       if (this.totalQuestions > index + 1) {
+        this.hasSelectedAnswer = false;
         this.currentQuestion = this.questionsList[index + 1];
         this.currentQuestion.currentNo = currentNo + 1;
         if (this.currentQuestion.givenAnswerId != -1)
@@ -224,9 +252,23 @@ export class QuizHomePageComponent implements OnInit {
     }
   }
 
-  onPreviousClick(state) {
+  onPreviousClick(data: any) {
     let currentNo = this.currentQuestion.currentNo;
     let index: number = this.questionsList.indexOf(this.currentQuestion);
+    this.questionsList[index].counter = data.counter;
+    this.questionsList[index].timer = data.lapTime;
+
+    let addQuizAnswer = {
+      quizAttemptId: this.attempId,
+      testId: this.testId,
+      questionId: this.currentQuestion.id,
+      duration: data.lapTime,
+    };
+
+    this.quizService
+      .addQuizAnswerDuration(addQuizAnswer)
+      .subscribe((res: any) => {});
+
     if (index - 1 >= 0) {
       this.currentQuestion = this.questionsList[index - 1];
       this.currentQuestion.currentNo = currentNo - 1;
@@ -264,5 +306,13 @@ export class QuizHomePageComponent implements OnInit {
     this.quizService.submitQuiz(submitObj).subscribe((res: any) => {
       this.isSubmitted = true;
     });
+  }
+
+  ngOnDestroy() {
+    alert('Service destroy');
+  }
+
+  onStopWatchChange(data) {
+    console.log(data);
   }
 }

@@ -16,6 +16,15 @@ export class QuizService {
     return this.http.post(this.BaseURI + '/quiz/answer', answer);
   }
 
+  addQuizAnswerDuration(quizAnswer: {
+    quizAttemptId: any;
+    testId: any;
+    questionId: any;
+    duration: any;
+  }) {
+    return this.http.post(this.BaseURI + '/quiz/duration', quizAnswer);
+  }
+
   submitQuiz(submitObj) {
     return this.http.post(this.BaseURI + '/quiz/submit', submitObj);
   }
