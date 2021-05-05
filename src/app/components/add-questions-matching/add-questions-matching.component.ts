@@ -12,7 +12,10 @@ export class AddQuestionsMatchingComponent implements OnInit {
   @Input() fromTest: boolean = false;
   array = Array;
   count = 4;
-  question: any = { title: 'Match the options below: ', questionType: '3' };
+  @Input() question: any = {
+    title: 'Match the options below: ',
+    questionType: '3',
+  };
   difficultyLevels: { id: number; name: string }[];
   constructor(
     private toastr: ToastrService,
@@ -20,7 +23,8 @@ export class AddQuestionsMatchingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.question.answers = [];
+    this.question.answers = this.question ? this.question.answers : [];
+    this.count = this.question ? this.question.answers.length : 4;
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
   }
   AddMoreAnswers() {

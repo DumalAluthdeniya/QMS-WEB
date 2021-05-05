@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { QuestionsService } from 'src/app/services/questions.service';
 
 @Component({
   selector: 'question-card-preview',
@@ -11,8 +13,12 @@ export class QuestionCardPreviewComponent implements OnInit {
   @Input() isResult: boolean = false;
   @Input() showAddQuestion: boolean;
   @Output() addQuestionToTestEvent = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
 
-  constructor() {}
+  constructor(
+    private questionService: QuestionsService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -21,6 +27,13 @@ export class QuestionCardPreviewComponent implements OnInit {
     this.addQuestionToTestEvent.emit({
       question: question,
       action: this.question.isSelected ? 'add' : 'remove',
+    });
+  }
+
+  DeleteQuestion(id) {
+    this.questionService.delete(id).subscribe((res: any) => {
+      this.toastr.info('Question Deleted Successfully');
+      this.delete.emit(id);
     });
   }
 }

@@ -11,7 +11,9 @@ export class QuestionsService {
   getAll() {
     return this.http.get(this.BaseURI + '/questions');
   }
-
+  get(id) {
+    return this.http.get(this.BaseURI + '/questions/' + id);
+  }
   add(question) {
     return this.http.post(this.BaseURI + '/questions', question);
   }

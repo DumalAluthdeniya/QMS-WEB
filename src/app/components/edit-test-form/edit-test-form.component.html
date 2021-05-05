@@ -16,16 +16,16 @@
                                 <a *ngIf="currentTestId" href="tests/new" class="btn btn-md btn-success pull-right"><i class="fa fa-plus"></i> Add New Test</a
                 >
                 <a
-                  *ngIf="currentTestId"
+                  *ngIf="!currentTestId"
                   href="tests/{{ currentTestId }}/links/new"
                   class="btn btn-md btn-info pull-right"
                   ><i class="fa fa-link"></i> Create Link</a
                 >
-                <a
+                <!-- <a
                   *ngIf="currentTestId"
                   href="results/1"
                   class="btn btn-md btn-danger pull-right"
-                  ><i class="fa fa-times"></i> Delete Test</a
+                  ><i class="fa fa-times"></i> Delete Test</a -->
                 >
               </div>
             </div>
@@ -100,18 +100,6 @@
                       >Test Questions</a
                     >
                   </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      id="profile-tab"
-                      data-toggle="tab"
-                      href="#profile"
-                      role="tab"
-                      aria-controls="profile"
-                      aria-selected="false"
-                      >Test Assignments</a
-                    >
-                  </li>
                 </ul>
                 <div class="row">
                   <div class="col">
@@ -154,26 +142,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        class="tab-pane fade"
-                        id="profile"
-                        role="tabpanel"
-                        aria-labelledby="profile-tab"
-                      >
-                        Food truck fixie locavore, accusamus mcsweeney's marfa
-                        nulla single-origin coffee squid. Exercitation +1 labore
-                        velit, blog sartorial PBR leggings next level wes
-                        anderson artisan four loko farm-to-table craft beer
-                        twee. Qui photo booth letterpress, commodo enim craft
-                        beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
-                        PBR. Homo nostrud organic, assumenda labore aesthetic
-                        magna delectus mollit. Keytar helvetica VHS salvia yr,
-                        vero magna velit sapiente labore stumptown. Vegan fanny
-                        pack odio cillum wes anderson 8-bit, sustainable jean
-                        shorts beard ut DIY ethical culpa terry richardson
-                        biodiesel. Art party scenester stumptown, tumblr butcher
-                        vero sint qui sapiente accusamus tattooed echo park.
                       </div>
                     </div>
                   </div>

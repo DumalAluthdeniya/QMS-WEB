@@ -11,21 +11,25 @@ import { QuestionsService } from 'src/app/services/questions.service';
 export class AddQuestionsMcqComponent implements OnInit {
   @Output() addQuestion = new EventEmitter<any>();
   @Input() fromTest: boolean = false;
+  @Input() question: any = { questionType: '1', answers: [] };
   array = Array;
   count = 4;
-  question: any = { questionType: '1' };
+
   difficultyLevels: any = [];
   correctAnswerIndex: 0;
-
   constructor(
     private questionService: QuestionsService,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    console.log(this.fromTest);
     this.question.answers = [];
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
+    this.count =
+      this.question && this.question.answers.length > 0
+        ? this.question.answers.length
+        : 4;
+    this.question.answers = this.question ? this.question.answers : [];
   }
 
   AddMoreAnswers() {

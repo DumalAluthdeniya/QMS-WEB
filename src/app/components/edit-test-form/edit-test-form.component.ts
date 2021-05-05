@@ -38,8 +38,6 @@ export class EditTestFormComponent implements OnInit {
   }
 
   AddQuestionToTest(data) {
-    console.log(data);
-
     if (data.action === 'add') {
       this.test.questions.push(data.question.id);
       this.selectedQuestions.push(data.question);
@@ -54,8 +52,6 @@ export class EditTestFormComponent implements OnInit {
   }
 
   AddTest() {
-    console.log(this.test);
-
     if (this.test.name == '' || this.test.name == null) {
       this.toastr.error('Name is required.');
       return false;

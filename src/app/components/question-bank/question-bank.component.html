@@ -59,6 +59,7 @@
           <div class="card-body">
             <div *ngFor="let currentItem of filteredQuestion">
               <question-card-preview
+                (delete)="Delete($event)"
                 [question]="currentItem"
                 [isTest]="false"
               ></question-card-preview>

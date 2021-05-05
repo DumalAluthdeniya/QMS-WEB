@@ -50,24 +50,40 @@
     <div class="card-footer" style="height: 3rem">
         <div class="row">
             <div *ngIf="!isTest" class="col">
-                <a href="/qb/edit/{{ question.id }}">edit</a> | <a href="#">remove</a>
-            </div>
+                <a href="/qb/edit/{{ question.id }}">edit</a> |
+                <a style="
+            text-decoration: underline;
+            font-weight: bold;
+            color: red;
+            cursor: pointer;
+          " (click)="DeleteQuestion(question.id)">remove</a
+        >
+      </div>
 
-            <div class="col" *ngIf="isTest && !question.isSelected && showAddQuestion">
-                <button (click)="UpdateTest(question)" class="btn btn-sm btn-success pull-right">
+      <div
+        class="col"
+        *ngIf="isTest && !question.isSelected && showAddQuestion"
+      >
+        <button
+          (click)="UpdateTest(question)"
+          class="btn btn-sm btn-success pull-right"
+        >
           Add Question To Test
         </button>
-            </div>
-            <div class="col" *ngIf="isTest && question.isSelected && showAddQuestion">
-                <button (click)="UpdateTest(question)" class="btn btn-sm btn-warning pull-right">
+      </div>
+      <div class="col" *ngIf="isTest && question.isSelected && showAddQuestion">
+        <button
+          (click)="UpdateTest(question)"
+          class="btn btn-sm btn-warning pull-right"
+        >
           Remove Question From Test
         </button>
-            </div>
-            <div class="col">
-                <p class="pull-right">
-                    Points: {{ question.points }} | Duration: {{ question.duration }}
-                </p>
-            </div>
-        </div>
+      </div>
+      <div class="col">
+        <p class="pull-right">
+          Points: {{ question.points }} | Duration: {{ question.duration }}
+        </p>
+      </div>
     </div>
+  </div>
 </div>

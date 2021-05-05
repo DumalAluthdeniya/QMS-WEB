@@ -60,4 +60,11 @@ export class QuestionBankComponent implements OnInit {
         ? this.questions.filter((qq) => qq.difficultyLevel == qlevel)
         : this.questions;
   }
+
+  Delete(id) {
+    console.log(id);
+    this.questions = this.filteredQuestion = this.questions.filter(
+      (qu) => qu.id != id
+    );
+  }
 }

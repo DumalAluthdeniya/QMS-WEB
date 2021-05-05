@@ -7,7 +7,7 @@
                     <countdown #cd [config]="{ leftTime: timeLimit * 60, notify: [2 * 60, 5 * 60] }" (event)="handleEvent($event)"></countdown>
                 </div>
                 <!-- <timer [start]="_start" [showTimerControls]="true"></timer> -->
-                <section class="timer-counter-label">
+                <!-- <section class="timer-counter-label">
                     <div *ngIf="counter" [ngClass]="{ blink: !running }">
                         <span>{{ minutes }}:</span><span>{{ seconds }}:</span>
                         <span>{{ milliseconds }}</span>
@@ -16,7 +16,7 @@
                         <span>{{ minutes }}:</span><span>{{ seconds }}:</span>
                         <span>{{ milliseconds }}</span>
                     </div>
-                </section>
+                </section> -->
                 <h3>Quiz 1</h3>
                 <div class="col-6 mt-2">
                     <div class="card">
@@ -133,7 +133,7 @@
                 </p>
 
                 <p style="color: red" *ngIf="!item.completed">Unaswered</p>
-                <p>{{ item.timer }}</p>
+                <!-- <p>{{ item.timer }}</p> -->
               </div>
             </div>
           </div>
