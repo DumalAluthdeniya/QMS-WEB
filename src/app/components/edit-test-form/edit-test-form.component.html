@@ -20,12 +20,13 @@
                   class="btn btn-md btn-info pull-right"
                   ><i class="fa fa-link"></i> Create Link</a
                 >
-                <!-- <a
+                <button
+                  (click)="deleteTest(currentTestId)"
                   *ngIf="currentTestId"
-                  href="results/1"
                   class="btn btn-md btn-danger pull-right"
-                  ><i class="fa fa-times"></i> Delete Test</a
-                > -->
+                >
+                  <i class="fa fa-times"></i> Delete Test
+                </button>
               </div>
             </div>
           </div>

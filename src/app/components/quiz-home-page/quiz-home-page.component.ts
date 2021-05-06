@@ -59,6 +59,8 @@ export class QuizHomePageComponent implements OnInit {
         this.linkId = link.id;
         this.hasTimeLimit = link.timeLimit > 0;
         this.timeLimit = link.timeLimit;
+        this.totalQuestions = link.totalQuestions;
+        console.log(link);
       },
       (err) => {
         alert(err.message);
@@ -107,9 +109,9 @@ export class QuizHomePageComponent implements OnInit {
 
             this.link = link;
             this.testId = link.test.id;
-            this.questionsList = link.test.questionsList.sort(
-              () => Math.random() - 0.1
-            );
+
+            this.questionsList = this.shuffle(link.test.questionsList);
+
             this.totalQuestions = this.questionsList.length;
             this.currentQuestion = this.questionsList[0];
             if (this.currentQuestion.randomizeAnswers) {
@@ -171,7 +173,25 @@ export class QuizHomePageComponent implements OnInit {
       return false;
     }
   }
+  shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
 
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
   onAnswerChange(data) {
     this.hasSelectedAnswer = true;
     data.quizAttemptId = this.attempId;
@@ -247,7 +267,9 @@ export class QuizHomePageComponent implements OnInit {
         this.currentQuestion = this.questionsList[index + 1];
         this.currentQuestion.currentNo = currentNo + 1;
         if (this.currentQuestion.randomizeAnswers) {
-          this.currentQuestion.answers.sort(() => Math.random() - 0.1);
+          this.currentQuestion.answers = this.shuffle(
+            this.currentQuestion.answers
+          );
         }
         if (this.currentQuestion.givenAnswerId != -1)
           this.hasSelectedAnswer = true;

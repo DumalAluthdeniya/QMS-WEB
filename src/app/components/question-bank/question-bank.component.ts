@@ -35,7 +35,6 @@ export class QuestionBankComponent implements OnInit {
         this.filteredQuestion = this.questions = questions;
         this.questionsCount = this.questions.length;
         this.spinner.hide();
-        console.log(this.filteredQuestion);
       }
     );
   }

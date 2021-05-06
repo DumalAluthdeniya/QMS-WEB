@@ -34,7 +34,7 @@
                             <div class="card-header">Instructions</div>
                             <div class="card-body">
                                 <ul>
-                                    <li>No of questions : 3</li>
+                                    <li>No of questions : {{ totalQuestions }}</li>
                                     <li *ngIf="timeLimit === 0">Has no time limit</li>
                                     <li *ngIf="timeLimit > 0">
                                         You have only <strong>{{ timeLimit }} minutes</strong>.

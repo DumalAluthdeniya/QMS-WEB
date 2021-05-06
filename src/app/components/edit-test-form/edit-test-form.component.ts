@@ -104,4 +104,11 @@ export class EditTestFormComponent implements OnInit {
     // then we can enable it again to create a new instance
     this.enabled = true;
   }
+
+  deleteTest(id) {
+    this.testService.delete(id).subscribe((res: any) => {
+      this.toastr.success('Test successfully deleted');
+      this.router.navigateByUrl('/dashboard');
+    });
+  }
 }
