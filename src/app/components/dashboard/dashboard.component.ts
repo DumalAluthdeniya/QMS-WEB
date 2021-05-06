@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
     this.testService.getAll().subscribe(
       (testsList: any) => {
         this.tests = testsList;
-
+        console.log(this.tests);
         this.spinner.hide();
       },
       (err) => {

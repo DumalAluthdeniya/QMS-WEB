@@ -11,25 +11,39 @@ import { QuestionsService } from 'src/app/services/questions.service';
 export class AddQuestionsMcqComponent implements OnInit {
   @Output() addQuestion = new EventEmitter<any>();
   @Input() fromTest: boolean = false;
-  @Input() question: any = { questionType: '1', answers: [] };
+  @Input() questionEdit: any = {};
   array = Array;
   count = 4;
-
+  question: any = {};
   difficultyLevels: any = [];
   correctAnswerIndex: 0;
+
   constructor(
     private questionService: QuestionsService,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.question.answers = [];
+    // this.question.questionType = 1;
+    // this.question.answers = [];
+    // this.count = 4;
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
-    this.count =
-      this.question && this.question.answers.length > 0
-        ? this.question.answers.length
-        : 4;
-    this.question.answers = this.question ? this.question.answers : [];
+  }
+
+  ngOnChanges() {
+    if (this.questionEdit) {
+      this.question = this.questionEdit;
+      this.question.questionType = 1;
+      if (this.question.answers) {
+        this.count = this.question.answers.length;
+        this.correctAnswerIndex = this.question.answers.indexOf(
+          this.question.answers.find((a) => a.isCorrectAnswer)
+        );
+      } else {
+        this.question.answers = [];
+        this.count = 4;
+      }
+    }
   }
 
   AddMoreAnswers() {
@@ -80,6 +94,7 @@ export class AddQuestionsMcqComponent implements OnInit {
 
             this.question = {};
             this.question.answers = [];
+            this.correctAnswerIndex = 0;
           },
           (err) => {
             this.toastr.error(err);
@@ -90,18 +105,21 @@ export class AddQuestionsMcqComponent implements OnInit {
       }
     }
   }
+
   UpdateQuestion() {
-    if (this.question.answers.length > 0) {
-      this.questionService.update(this.question.id, this.question).subscribe(
-        (qId: any) => {
-          this.toastr.info('MCQ updated successfully');
-        },
-        (err) => {
-          this.toastr.error(err);
-        }
-      );
-    } else {
-      this.toastr.error('Please add at lease one answer');
+    {
+      if (this.question.answers.length > 0) {
+        this.questionService.update(this.question.id, this.question).subscribe(
+          (qId: any) => {
+            this.toastr.info('MCQ updated Successfully');
+          },
+          (err) => {
+            this.toastr.error(err);
+          }
+        );
+      } else {
+        this.toastr.error('Please add at lease one answer');
+      }
     }
   }
 }

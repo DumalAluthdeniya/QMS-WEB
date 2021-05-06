@@ -81,7 +81,8 @@
       </div>
       <div class="col">
         <p class="pull-right">
-          Points: {{ question.points }} | Duration: {{ question.duration }}
+          Points: {{ question.points }}
+          <span *ngIf="isResult"> | Duration: {{ question.duration }}</span>
         </p>
       </div>
     </div>

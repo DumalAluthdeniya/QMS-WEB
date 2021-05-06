@@ -112,6 +112,10 @@ export class QuizHomePageComponent implements OnInit {
             );
             this.totalQuestions = this.questionsList.length;
             this.currentQuestion = this.questionsList[0];
+            if (this.currentQuestion.randomizeAnswers) {
+              this.currentQuestion.answers.sort(() => Math.random() - 0.1);
+            }
+
             this.currentQuestion.currentNo = 1;
             this.currentQuestion.counter = 0;
             if (this.currentQuestion.givenAnswerId != -1) {
@@ -242,6 +246,9 @@ export class QuizHomePageComponent implements OnInit {
         this.hasSelectedAnswer = false;
         this.currentQuestion = this.questionsList[index + 1];
         this.currentQuestion.currentNo = currentNo + 1;
+        if (this.currentQuestion.randomizeAnswers) {
+          this.currentQuestion.answers.sort(() => Math.random() - 0.1);
+        }
         if (this.currentQuestion.givenAnswerId != -1)
           this.hasSelectedAnswer = true;
       } else {

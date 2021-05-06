@@ -10,12 +10,12 @@ import { QuestionsService } from 'src/app/services/questions.service';
 export class AddQuestionsMatchingComponent implements OnInit {
   @Output() addQuestion = new EventEmitter<any>();
   @Input() fromTest: boolean = false;
+  @Input() questionEdit: any = {};
+
   array = Array;
-  count = 4;
-  @Input() question: any = {
-    title: 'Match the options below: ',
-    questionType: '3',
-  };
+  count;
+  question: any = {};
+
   difficultyLevels: { id: number; name: string }[];
   constructor(
     private toastr: ToastrService,
@@ -23,10 +23,26 @@ export class AddQuestionsMatchingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.question.answers = this.question ? this.question.answers : [];
-    this.count = this.question ? this.question.answers.length : 4;
+    // this.question.questionType = 3;
+    // this.question.title = 'Match the options below: ';
+    // this.count = 4;
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
   }
+
+  ngOnChanges() {
+    if (this.questionEdit) {
+      this.question = this.questionEdit;
+      this.question.questionType = 3;
+      this.question.title = 'Match the options below: ';
+      if (this.question.answers && this.question.answers.length) {
+        this.count = this.question.answers.length;
+      } else {
+        this.question.answers = [];
+        this.count = 4;
+      }
+    }
+  }
+
   AddMoreAnswers() {
     this.count++;
   }
@@ -36,7 +52,6 @@ export class AddQuestionsMatchingComponent implements OnInit {
     if (this.question.answers.length > 0) {
       var xx = this.question.answers[i];
       this.question.answers.splice(i, 1);
-      console.log(this.question.answers);
     }
   }
 

@@ -36,13 +36,14 @@ export class TestsSelectQuestionsComponent implements OnInit {
         this.questionTypes = types;
         this.difficultyLevels = levels;
         questionsList.map((question: any) => {
-          this.parent.selectedQuestions.some((el) => el.title == question.title)
+          this.parent.selectedQuestions.some((el) => el.id == question.id)
             ? (question.isSelected = true)
             : (question.isSelected = false);
           this.questions.push(question);
           this.filteredQuestion = this.questions;
         });
         console.log(this.filteredQuestion);
+        console.log(this.parent.selectedQuestions);
       }
     );
   }

@@ -1,0 +1,30 @@
+<h6 class="mt-3">Select Question Type</h6>
+<div class="d-flex flex-row">
+    <button (click)="onButtonClick(1)" class="btn btn-squared-default btn-outline-dark">
+    <i class="fa fa-list-alt fa-5x"></i>
+    <br />
+    Multiple Choice
+  </button>
+    <button href="#" (click)="onButtonClick(2)" class="btn btn-squared-default btn-outline-dark">
+    <i class="fa fa-check fa-5x"></i>
+    <i class="fa fa-times fa-5x"></i>
+    <br />
+    True False
+  </button>
+    <button (click)="onButtonClick(3)" class="btn btn-squared-default btn-outline-dark">
+    <i class="fa fa-random fa-5x"></i>
+    <br />
+    Matching
+  </button>
+    <button (click)="onButtonClick(4)" class="btn btn-squared-default btn-outline-dark">
+    <i class="fa fa-align-right fa-5x"></i>
+    <br />
+    Free Text
+  </button>
+</div>
+<div class="mt-3">
+    <add-questions-mcq [fromTest]="true" (addQuestion)="onAddQuestion($event)" *ngIf="type === 1"></add-questions-mcq>
+    <add-questions-truefalse [fromTest]="true" (addQuestion)="onAddQuestion($event)" *ngIf="type === 2"></add-questions-truefalse>
+    <add-questions-matching [fromTest]="true" (addQuestion)="onAddQuestion($event)" *ngIf="type === 3"></add-questions-matching>
+    <add-question-freetext [fromTest]="true" (addQuestion)="onAddQuestion($event)" *ngIf="type === 4"></add-question-freetext>
+</div>

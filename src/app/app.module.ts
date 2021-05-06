@@ -32,6 +32,7 @@ import { QuizQuestionComponent } from './components/quiz-question/quiz-question.
 import { TestResultHomeComponent } from './components/test-result-home/test-result-home.component';
 import { AddQuestionFreetextComponent } from './components/add-question-freetext/add-question-freetext.component';
 import { TimerComponent } from './components/common/timer/timer.component';
+import { AddQuestionFormTestComponent } from './components/add-question-form-test/add-question-form-test.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { TimerComponent } from './components/common/timer/timer.component';
     TestResultHomeComponent,
     AddQuestionFreetextComponent,
     TimerComponent,
+    AddQuestionFormTestComponent,
   ],
   imports: [
     BrowserModule,

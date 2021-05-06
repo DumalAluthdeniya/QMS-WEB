@@ -10,7 +10,8 @@ import { QuestionsService } from 'src/app/services/questions.service';
 export class AddQuestionFreetextComponent implements OnInit {
   @Output() addQuestion = new EventEmitter<any>();
   @Input() fromTest: boolean = false;
-  @Input() question = {
+  @Input() questionEdit: any = {};
+  question = {
     id: 0,
     givenAnswerId: -1,
     answers: [],
@@ -28,8 +29,15 @@ export class AddQuestionFreetextComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.answer = this.question ? this.question.answers[0].name : '';
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
+  }
+
+  ngOnChanges() {
+    if (this.questionEdit) {
+      this.question = this.questionEdit;
+      this.question.questionType = 4;
+      this.answer = this.question.answers ? this.question.answers[0].name : '';
+    }
   }
   AddQuestion() {
     if (this.question.id) {

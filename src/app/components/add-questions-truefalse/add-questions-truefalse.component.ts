@@ -10,9 +10,12 @@ import { QuestionsService } from 'src/app/services/questions.service';
 export class AddQuestionsTruefalseComponent implements OnInit {
   @Output() addQuestion = new EventEmitter<any>();
   @Input() fromTest: boolean = false;
-  answersList = ['True', 'False'];
-  @Input() question: any = { questionType: '2' };
+  @Input() questionEdit: any = {};
 
+  answersList: any = ['True', 'False'];
+  question: any = {};
+  array = Array;
+  count = 2;
   correctAnswerIndex: 0;
   difficultyLevels: { id: number; name: string }[];
   constructor(
@@ -21,11 +24,26 @@ export class AddQuestionsTruefalseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.question.answers = this.question ? [] : this.question.answers;
-    this.answersList.map((item) => {
-      this.question.answers.push({ name: item });
-    });
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
+  }
+
+  ngOnChanges() {
+    if (this.questionEdit) {
+      this.question = this.questionEdit;
+      console.log(this.question);
+      this.question.questionType = 2;
+      if (this.question.answers && this.question.answers.length > 0) {
+        this.count = this.question.answers.length;
+        this.correctAnswerIndex = this.question.answers.indexOf(
+          this.question.answers.find((a) => a.isCorrectAnswer)
+        );
+      } else {
+        this.count = 2;
+        this.question.answers = [];
+        this.question.answers.push({ name: 'True' });
+        this.question.answers.push({ name: 'False' });
+      }
+    }
   }
 
   dataChanged(event, i, type) {
@@ -64,6 +82,8 @@ export class AddQuestionsTruefalseComponent implements OnInit {
             this.toastr.info('True/False Question Successfully Added');
             this.question = {};
             this.question.answers = [];
+            this.question.answers.push({ name: 'True' });
+            this.question.answers.push({ name: 'False' });
           },
           (err) => {
             this.toastr.error(err);

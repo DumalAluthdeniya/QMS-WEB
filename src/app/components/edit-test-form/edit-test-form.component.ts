@@ -14,7 +14,7 @@ export class EditTestFormComponent implements OnInit {
     questions: [],
   };
 
-  selectedQuestions = [];
+  selectedQuestions: any = [];
   currentTestId: number;
   enabled: boolean = true;
 
@@ -38,6 +38,7 @@ export class EditTestFormComponent implements OnInit {
   }
 
   AddQuestionToTest(data) {
+    console.log(data);
     if (data.action === 'add') {
       this.test.questions.push(data.question.id);
       this.selectedQuestions.push(data.question);
@@ -73,6 +74,7 @@ export class EditTestFormComponent implements OnInit {
         }
       );
     } else {
+      console.log(this.test);
       this.testService.update(this.currentTestId, this.test).subscribe(
         (res: any) => {
           this.toastr.success(
@@ -88,6 +90,9 @@ export class EditTestFormComponent implements OnInit {
   }
 
   onQuestionAdd(question: any) {
+    question.givenAnswerId = question.givenAnswerId
+      ? question.givenAnswerId
+      : 0;
     this.test.questions.push(question.id);
     this.selectedQuestions.push(question);
   }

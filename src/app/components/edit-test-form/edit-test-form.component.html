@@ -16,7 +16,6 @@
                                 <a *ngIf="currentTestId" href="tests/new" class="btn btn-md btn-success pull-right"><i class="fa fa-plus"></i> Add New Test</a
                 >
                 <a
-                  *ngIf="test.links.length <= 0"
                   href="tests/{{ currentTestId }}/links/new"
                   class="btn btn-md btn-info pull-right"
                   ><i class="fa fa-link"></i> Create Link</a
@@ -25,8 +24,8 @@
                   *ngIf="currentTestId"
                   href="results/1"
                   class="btn btn-md btn-danger pull-right"
-                  ><i class="fa fa-times"></i> Delete Test</a -->
-                >
+                  ><i class="fa fa-times"></i> Delete Test</a
+                > -->
               </div>
             </div>
           </div>
@@ -200,10 +199,9 @@
                             role="tabpanel"
                             aria-labelledby="pills-profile-tab"
                           >
-                            <add-questions-form
-                              [fromTest]="true"
+                            <add-question-form-test
                               (addQuestion)="onQuestionAdd($event)"
-                            ></add-questions-form>
+                            ></add-question-form-test>
                           </div>
                         </div>
                       </div>

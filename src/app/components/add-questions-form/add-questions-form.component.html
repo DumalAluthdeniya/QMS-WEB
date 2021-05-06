@@ -23,8 +23,8 @@
   </button>
 </div>
 <div class="mt-3">
-    <add-questions-mcq (addQuestion)="onAddQuestion($event)" [question]="question" [fromTest]="fromTest" *ngIf="type === 1"></add-questions-mcq>
-    <add-questions-truefalse (addQuestion)="onAddQuestion($event)" [question]="question" [fromTest]="fromTest" *ngIf="type === 2"></add-questions-truefalse>
-    <add-questions-matching (addQuestion)="onAddQuestion($event)" [question]="question" [fromTest]="fromTest" *ngIf="type === 3"></add-questions-matching>
-    <add-question-freetext (addQuestion)="onAddQuestion($event)" [question]="question" [fromTest]="fromTest" *ngIf="type === 4"></add-question-freetext>
+    <add-questions-mcq (addQuestion)="onAddQuestion($event)" [questionEdit]="question" [fromTest]="fromTest" *ngIf="type === 1"></add-questions-mcq>
+    <add-questions-truefalse (addQuestion)="onAddQuestion($event)" [questionEdit]="question" [fromTest]="fromTest" *ngIf="type === 2"></add-questions-truefalse>
+    <add-questions-matching (addQuestion)="onAddQuestion($event)" [questionEdit]="question" [fromTest]="fromTest" *ngIf="type === 3"></add-questions-matching>
+    <add-question-freetext (addQuestion)="onAddQuestion($event)" [questionEdit]="question" [fromTest]="fromTest" *ngIf="type === 4"></add-question-freetext>
 </div>
