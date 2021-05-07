@@ -9,7 +9,9 @@ export class QuestionsService {
   readonly BaseURI = 'https://localhost:44329/api';
 
   getAll() {
-    return this.http.get(this.BaseURI + '/questions');
+    return this.http.get(
+      this.BaseURI + '/questions/all/' + localStorage.getItem('userName')
+    );
   }
   get(id) {
     return this.http.get(this.BaseURI + '/questions/' + id);

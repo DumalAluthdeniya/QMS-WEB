@@ -18,19 +18,30 @@ export class AddQuestionsTruefalseComponent implements OnInit {
   count = 2;
   correctAnswerIndex: 0;
   difficultyLevels: { id: number; name: string }[];
+  initialized = false;
   constructor(
     private toastr: ToastrService,
     private questionService: QuestionsService
   ) {}
 
   ngOnInit(): void {
+    if (!this.questionEdit.id) {
+      this.initialized = true;
+      this.count = 2;
+      this.question = {};
+      this.question.questionType = 2;
+      this.question.user = localStorage.getItem('userName');
+    }
+    this.question.answers = [];
+    this.question.answers.push({ name: 'True' });
+    this.question.answers.push({ name: 'False' });
+
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
   }
 
   ngOnChanges() {
     if (this.questionEdit) {
       this.question = this.questionEdit;
-      console.log(this.question);
       this.question.questionType = 2;
       if (this.question.answers && this.question.answers.length > 0) {
         this.count = this.question.answers.length;

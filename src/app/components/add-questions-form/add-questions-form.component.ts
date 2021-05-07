@@ -13,7 +13,7 @@ export class AddQuestionsFormComponent implements OnInit {
 
   type = 1;
   currentQuestionId: any;
-  question: any = {};
+  questionEdit: any = {};
   addNew: boolean;
 
   constructor(
@@ -32,7 +32,7 @@ export class AddQuestionsFormComponent implements OnInit {
       this.questionService
         .get(this.currentQuestionId)
         .subscribe((question: any) => {
-          this.question = question;
+          this.questionEdit = question;
           this.type = question.questionType;
         });
     } else {

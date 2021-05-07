@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { error } from 'selenium-webdriver';
 import { QuestionsService } from 'src/app/services/questions.service';
 
 @Component({
@@ -24,9 +23,13 @@ export class AddQuestionsMcqComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.question.questionType = 1;
-    // this.question.answers = [];
-    // this.count = 4;
+    if (!this.questionEdit.id) {
+      this.question = {};
+      this.question.answers = [];
+      this.count = 4;
+      this.question.questionType = 1;
+      this.question.user = localStorage.getItem('userName');
+    }
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
   }
 
@@ -55,7 +58,6 @@ export class AddQuestionsMcqComponent implements OnInit {
     if (this.question.answers.length > 0) {
       var xx = this.question.answers[i];
       this.question.answers.splice(i, 1);
-      console.log(this.question.answers);
     }
   }
 
@@ -82,6 +84,7 @@ export class AddQuestionsMcqComponent implements OnInit {
     if (this.question.id) {
       this.UpdateQuestion();
     } else {
+      console.log(this.question);
       if (this.question.answers.length > 0) {
         this.questionService.add(this.question).subscribe(
           (qId: any) => {

@@ -20,6 +20,7 @@ export class AddQuestionFreetextComponent implements OnInit {
     questionType: 4,
     difficultyLevel: 0,
     topic: '',
+    user: localStorage.getItem('userName'),
   };
   answer: any;
   difficultyLevels: { id: number; name: string }[];
@@ -29,14 +30,32 @@ export class AddQuestionFreetextComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (!this.questionEdit.id) {
+      this.question = {
+        id: 0,
+        givenAnswerId: -1,
+        answers: [],
+        points: 0,
+        title: '',
+        questionType: 4,
+        difficultyLevel: 0,
+        topic: '',
+        user: localStorage.getItem('userName'),
+      };
+      this.answer = '';
+    }
+    this.question.answers = [];
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
+    console.log(this.question);
   }
 
   ngOnChanges() {
     if (this.questionEdit) {
       this.question = this.questionEdit;
       this.question.questionType = 4;
-      this.answer = this.question.answers ? this.question.answers[0].name : '';
+      this.answer = this.question.answers[0]
+        ? this.question.answers[0].name
+        : '';
     }
   }
   AddQuestion() {
@@ -63,6 +82,7 @@ export class AddQuestionFreetextComponent implements OnInit {
               questionType: 4,
               difficultyLevel: 0,
               topic: '',
+              user: localStorage.getItem('userName'),
             };
             this.answer = '';
           },

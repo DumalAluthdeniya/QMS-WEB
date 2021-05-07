@@ -23,9 +23,13 @@ export class AddQuestionsMatchingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.question.questionType = 3;
-    // this.question.title = 'Match the options below: ';
-    // this.count = 4;
+    if (!this.questionEdit.id) {
+      this.question.answers = [];
+      this.count = 4;
+      this.question.questionType = 3;
+      this.question.user = localStorage.getItem('userName');
+    }
+
     this.difficultyLevels = this.questionService.getDifficutlyLevels();
   }
 
@@ -96,7 +100,7 @@ export class AddQuestionsMatchingComponent implements OnInit {
     if (this.question.answers.length > 0) {
       this.questionService.update(this.question.id, this.question).subscribe(
         (qId: any) => {
-          this.toastr.info('MCQ updated successfully ');
+          this.toastr.info('Question updated successfully ');
         },
         (err) => {
           this.toastr.error(err);
