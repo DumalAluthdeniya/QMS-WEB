@@ -15,7 +15,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.testService.getAll().subscribe(
+    var user = localStorage.getItem('userName');
+    this.testService.getAll(user).subscribe(
       (testsList: any) => {
         this.tests = testsList;
         console.log(this.tests);
