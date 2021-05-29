@@ -96,6 +96,8 @@ export class AddQuestionsMcqComponent implements OnInit {
             }
 
             this.question = {};
+            this.question.user = localStorage.getItem('userName');
+            this.question.questionType = 1;
             this.question.answers = [];
             this.correctAnswerIndex = 0;
           },

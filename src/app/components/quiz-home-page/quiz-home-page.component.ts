@@ -39,6 +39,7 @@ export class QuizHomePageComponent implements OnInit {
   isSubmitted: boolean;
   hasTimeLimit: boolean = true;
   timeLimit: any;
+  answerSummery: any;
 
   constructor(
     private router: Router,
@@ -208,26 +209,22 @@ export class QuizHomePageComponent implements OnInit {
           .find((q) => q.id == data.questionId)
           .answers.filter((a) => a.givenMatchingText == null).length <= 0
       ) {
-        this.questionsList.find(
-          (ql) => ql.id == data.questionId
-        ).completed = true;
+        this.questionsList.find((ql) => ql.id == data.questionId).completed =
+          true;
       } else {
-        this.questionsList.find(
-          (ql) => ql.id == data.questionId
-        ).completed = false;
+        this.questionsList.find((ql) => ql.id == data.questionId).completed =
+          false;
       }
     } else if (data.questionType == 4) {
-      this.questionsList.find(
-        (ql) => ql.id == data.questionId
-      ).completed = true;
+      this.questionsList.find((ql) => ql.id == data.questionId).completed =
+        true;
       this.questionsList
         .find((q) => q.id == data.questionId)
         .answers.find((a) => a.id == data.givenAnswerId).givenMatchingText =
         data.matchingText;
     } else {
-      this.questionsList.find(
-        (ql) => ql.id == data.questionId
-      ).completed = true;
+      this.questionsList.find((ql) => ql.id == data.questionId).completed =
+        true;
       this.questionsList.find((q) => q.id == data.questionId).givenAnswerId =
         data.givenAnswerId;
     }
@@ -306,7 +303,6 @@ export class QuizHomePageComponent implements OnInit {
 
   onTimerEventChange(timerEvent: any = {}) {
     if (timerEvent.action === 'notify') {
-      console.log(timerEvent.left);
       this.toastr.info(
         'You have ' + timerEvent.left / 1000 / 60 + ' minutes.',
         'Time Limit'
@@ -334,6 +330,7 @@ export class QuizHomePageComponent implements OnInit {
 
     this.quizService.submitQuiz(submitObj).subscribe((res: any) => {
       this.isSubmitted = true;
+      this.answerSummery = res;
     });
   }
 

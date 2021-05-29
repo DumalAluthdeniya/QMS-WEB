@@ -84,6 +84,8 @@ export class AddQuestionsMatchingComponent implements OnInit {
             }
             this.toastr.info('Matching Question Successfully Added');
             this.question = {};
+            this.question.user = localStorage.getItem('userName');
+            this.question.questionType = 3;
             this.question.answers = [];
           },
           (err) => {

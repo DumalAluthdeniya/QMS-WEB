@@ -1,13 +1,17 @@
 <div class="wrapper">
-    <div id="body" class="active">
-        <div class="content">
-            <div class="mt-5 d-flex flex-column align-items-center">
-                <div *ngIf="hasTimeLimit" style="font-size: xx-large; font-weight: 800">
-                    Time Left :
-                    <countdown #cd [config]="{ leftTime: timeLimit * 60, notify: [2 * 60, 5 * 60] }" (event)="handleEvent($event)"></countdown>
-                </div>
-                <!-- <timer [start]="_start" [showTimerControls]="true"></timer> -->
-                <!-- <section class="timer-counter-label">
+  <div id="body" class="active">
+    <div class="content">
+      <div class="mt-5 d-flex flex-column align-items-center">
+        <div *ngIf="hasTimeLimit" style="font-size: xx-large; font-weight: 800">
+          Time Left :
+          <countdown
+            #cd
+            [config]="{ leftTime: timeLimit * 60, notify: [2 * 60, 5 * 60] }"
+            (event)="handleEvent($event)"
+          ></countdown>
+        </div>
+        <!-- <timer [start]="_start" [showTimerControls]="true"></timer> -->
+        <!-- <section class="timer-counter-label">
                     <div *ngIf="counter" [ngClass]="{ blink: !running }">
                         <span>{{ minutes }}:</span><span>{{ seconds }}:</span>
                         <span>{{ milliseconds }}</span>
@@ -17,53 +21,68 @@
                         <span>{{ milliseconds }}</span>
                     </div>
                 </section> -->
-                <h3>Quiz 1</h3>
-                <div class="col-6 mt-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <h6>
-                                Question {{ question.currentNo }} of {{ questionList.length }}
-                            </h6>
-                        </div>
-                        <div class="card-body">
-                            <h6>{{ question.title }}</h6>
-                            <hr />
-                            <div *ngIf="question.questionType == 1">
-                                <ol>
-                                    <li *ngFor="let answer of question.answers">
-                                        <input (change)="
+        <h3>Quiz 1</h3>
+        <div class="col-6 mt-2">
+          <div class="card">
+            <div class="card-header">
+              <h6>
+                Question {{ question.currentNo }} of {{ questionList.length }}
+              </h6>
+            </div>
+            <div class="card-body">
+              <h6>{{ question.title }}</h6>
+              <hr />
+              <div *ngIf="question.questionType == 1">
+                <ol>
+                  <li *ngFor="let answer of question.answers">
+                    <input
+                      (change)="
                         onItemChange({
                           questionId: question.id,
                           answer: answer.name,
                           givenAnswerId: answer.id,
                           questionType: question.questionType
                         })
-                      " type="radio" [checked]="question.givenAnswerId === answer.id" value="{{ answer.name }}" name="mcq" /> {{ answer.name }}
-                                    </li>
-                                </ol>
-                            </div>
-                            <div *ngIf="question.questionType == 2">
-                                <ul>
-                                    <li *ngFor="let answer of question.answers">
-                                        <input (change)="
+                      "
+                      type="radio"
+                      [checked]="question.givenAnswerId === answer.id"
+                      value="{{ answer.name }}"
+                      name="mcq"
+                    />
+                    {{ answer.name }}
+                  </li>
+                </ol>
+              </div>
+              <div *ngIf="question.questionType == 2">
+                <ul>
+                  <li *ngFor="let answer of question.answers">
+                    <input
+                      (change)="
                         onItemChange({
                           questionId: question.id,
                           answer: answer.name,
                           givenAnswerId: answer.id,
                           questionType: question.questionType
                         })
-                      " type="radio" [checked]="question.givenAnswerId === answer.id" value="{{ answer.name }}" name="mcq" /> {{ answer.name }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div *ngIf="question.questionType == 3">
-                                <ul>
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr *ngFor="let answer of question.answers">
-                                                <td>{{ answer.name }}</td>
-                                                <td>
-                                                    <select (change)="
+                      "
+                      type="radio"
+                      [checked]="question.givenAnswerId === answer.id"
+                      value="{{ answer.name }}"
+                      name="mcq"
+                    />
+                    {{ answer.name }}
+                  </li>
+                </ul>
+              </div>
+              <div *ngIf="question.questionType == 3">
+                <ul>
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr *ngFor="let answer of question.answers">
+                        <td>{{ answer.name }}</td>
+                        <td>
+                          <select
+                            (change)="
                               onItemChange({
                                 questionId: question.id,
                                 answer: answer.name,
@@ -71,7 +90,9 @@
                                 givenAnswerId: answer.id,
                                 questionType: question.questionType
                               })
-                            " class="form-select">
+                            "
+                            class="form-select"
+                          >
                             <option value=""></option>
                             <option
                               *ngFor="let answerListItem of matchingTextList"
@@ -83,14 +104,16 @@
                               {{ answerListItem }}
                             </option>
                           </select>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </ul>
-                            </div>
-                            <div *ngIf="question.questionType == 4">
-                                <textarea class="form-control" (focusout)="
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </ul>
+              </div>
+              <div *ngIf="question.questionType == 4">
+                <textarea
+                  class="form-control"
+                  (focusout)="
                     onItemChange({
                       questionId: question.id,
                       answer: question.name,
@@ -98,7 +121,9 @@
                       givenAnswerId: question.answers[0].id,
                       questionType: question.questionType
                     })
-                  " name="freetext">{{ question.answers[0].givenMatchingText }}</textarea
+                  "
+                  name="freetext"
+                  >{{ question.answers[0].givenMatchingText }}</textarea
                 >
               </div>
             </div>
@@ -119,19 +144,14 @@
           SUMBIT QUIZ
         </button>
         <div class="mt-5">
-          <p>Current Progress. Click the box to navigate to question.</p>
+          <p>Current Progress.</p>
           <div class="d-flex flex-row no-gutter">
             <div class="card" *ngFor="let item of questionList; index as i">
-              <div
-                style="cursor: pointer"
-                (click)="SetCurrentQuestion(item, i)"
-                class="card-body text-center"
-              >
+              <div style="cursor: pointer" class="card-body text-center">
                 <h6>{{ i + 1 }}</h6>
                 <p style="color: rgb(72, 23, 206)" *ngIf="item.completed">
                   Answered
                 </p>
-
                 <p style="color: red" *ngIf="!item.completed">Unaswered</p>
                 <!-- <p>{{ item.timer }}</p> -->
               </div>

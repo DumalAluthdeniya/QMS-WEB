@@ -17,6 +17,7 @@ export class EditTestFormComponent implements OnInit {
   selectedQuestions: any = [];
   currentTestId: number;
   enabled: boolean = true;
+  pointsSum: any = 0;
 
   constructor(
     private testService: TestService,
@@ -34,11 +35,13 @@ export class EditTestFormComponent implements OnInit {
     this.testService.get(this.currentTestId).subscribe((test: any) => {
       this.test = test;
       this.selectedQuestions = test.questionsList;
+      this.selectedQuestions.map((q) => {
+        this.pointsSum += q.points;
+      });
     });
   }
 
   AddQuestionToTest(data) {
-    console.log(data);
     if (data.action === 'add') {
       this.test.questions.push(data.question.id);
       this.selectedQuestions.push(data.question);
@@ -46,10 +49,15 @@ export class EditTestFormComponent implements OnInit {
       this.test.questions = this.test.questions.filter(
         (item) => item != data.question.id
       );
+
       this.selectedQuestions = this.selectedQuestions.filter(
         (item) => item.title != data.question.title
       );
     }
+    this.pointsSum = 0;
+    this.selectedQuestions.map((q) => {
+      this.pointsSum += q.points;
+    });
   }
 
   AddTest() {
@@ -95,6 +103,10 @@ export class EditTestFormComponent implements OnInit {
       : 0;
     this.test.questions.push(question.id);
     this.selectedQuestions.push(question);
+    this.pointsSum = 0;
+    this.selectedQuestions.map((q) => {
+      this.pointsSum += q.points;
+    });
   }
 
   refreshQuestions() {

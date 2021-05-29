@@ -1,61 +1,64 @@
 <div class="wrapper">
-    <div id="body" class="active">
-        <app-nav-bar></app-nav-bar>
-        <div class="content">
-            <ngx-spinner></ngx-spinner>
-            <div class="container-fluid">
-                <div class="page-title">
-                    <h3>
-                        <i class="fa fa-sticky-note"></i> {{ link.test.name }} - Results
-                    </h3>
-                    <p><i class="fa fa-link"></i>{{ link.name }}</p>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">Attempted Student Link</div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Name</th>
-                                                <th>Date</th>
-                                                <th>Score</th>
-                                                <th>Duration</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let student of link.quizAttempts; index as i">
-                                                <th scope="row">{{ i + 1 }}</th>
+  <div id="body" class="active">
+    <app-nav-bar></app-nav-bar>
+    <div class="content">
+      <ngx-spinner></ngx-spinner>
+      <div class="container-fluid">
+        <div class="page-title">
+          <h3>
+            <i class="fa fa-sticky-note"></i> {{ link.test.name }} - Results
+          </h3>
+          <p><i class="fa fa-link"></i>{{ link.name }}</p>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">Attempted Student Link</div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Score</th>
+                        <th>Duration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let student of link.quizAttempts; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
 
-                                                <td style="
+                        <td
+                          style="
                             cursor: pointer;
                             color: blue;
                             text-decoration: underline;
-                          " (click)="ShowResultSummery(student.id)">
-                                                    {{ student.name }}
-                                                </td>
+                          "
+                          (click)="ShowResultSummery(student.id)"
+                        >
+                          {{ student.name }}
+                        </td>
 
-                                                <td>{{ student.startDate | date: "medium" }}</td>
-                                                <td>{{ student.score }}</td>
-                                                <td>{{ student.duration }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" *ngIf="student.name">
-                        <div class="card">
-                            <div class="card-header">
-                                Results for
-                                <strong>{{ student.name }}</strong>
-                            </div>
-                            <div class="card-body">
-                                <small>
+                        <td>{{ student.startDate | date: "medium" }}</td>
+                        <td>{{ student.score }}</td>
+                        <td>{{ student.duration }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" *ngIf="student.name">
+            <div class="card">
+              <div class="card-header">
+                Results for
+                <strong>{{ student.name }}</strong>
+              </div>
+              <div class="card-body">
+                <small>
                   <i class="fa fa-user"></i> Name : {{ student.name }}</small
                 ><br />
                 <small>
@@ -70,8 +73,8 @@
                   <i class="fa fa-stopwatch"></i> Duration :
                   {{ student.duration }}
                 </small>
-                                <br />
-                                <small>
+                <br />
+                <small>
                   <i class="fa fa-hourglass-start"></i> Date Started :
                   {{ student.startDate | date: "medium" }} </small
                 ><br />
@@ -80,40 +83,61 @@
                   {{ student.finishDate | date: "medium" }}
                 </small>
 
-                                <h4 class="mt-2">Answer Summery</h4>
-                                <p>
-                                    <i class="fa fa-th-list"></i> No of questions : {{ student.noOfQuestions }}
-                                </p>
-                                <p>
-                                    <i class="fa fa-check"></i> Correct Answers : {{ student.correctAnswerCount }}
-                                </p>
-                                <p>
-                                    <i class="fa fa-times"></i> Incorrect Answers : {{ student.inCorrectAnswerCount }}
-                                </p>
+                <h4 class="mt-2">Answer Summery</h4>
+                <p>
+                  <i class="fa fa-th-list"></i> No of questions :
+                  {{ student.noOfQuestions }}
+                </p>
+                <p>
+                  <i class="fa fa-th-list"></i> Total Marks :
+                  {{ student.totalMarks }}
+                </p>
+                <p>
+                  <i class="fa fa-check"></i> Correct Answers :
+                  {{ student.correctAnswerCount }}
+                </p>
+                <p>
+                  <i class="fa fa-check"></i> Marks Obtained :
+                  {{ student.score }} out of {{ student.totalMarks }}
+                </p>
+                <p>
+                  <i class="fa fa-times"></i> Incorrect Answers :
+                  {{ student.inCorrectAnswerCount }}
+                </p>
 
-                                <h4>Answer Summery By Difficulty Level</h4>
-                                <p>Easy : {{ student.correctEasyQuestion }}</p>
-                                <p>Medium : {{ student.correctMediumQuestion }}</p>
-                                <p>Difficult : {{ student.correctDifficultQuestion }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4" *ngIf="student.name">
-                        <div class="card">
-                            <div class="card-header">Detailed Results</div>
-                            <div class="card-body">
-                                <div>
-                                    <i style="color: green" class="fa fa-check"></i> Correct Answer <i style="color: blue" class="fa fa-user"></i>Selected Answer
-                                </div>
-
-                                <div class="mt-1" *ngFor="let currentItem of link.test.questionsList">
-                                    <question-card-preview [question]="currentItem" [isTest]="true" [showAddQuestion]="false" [isResult]="true"></question-card-preview>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h4>Answer Summery By Difficulty Level</h4>
+                <p>Easy : {{ student.correctEasyQuestion }}</p>
+                <p>Medium : {{ student.correctMediumQuestion }}</p>
+                <p>Difficult : {{ student.correctDifficultQuestion }}</p>
+              </div>
             </div>
+          </div>
+          <div class="col-4" *ngIf="student.name">
+            <div class="card">
+              <div class="card-header">Detailed Results</div>
+              <div class="card-body">
+                <div>
+                  <i style="color: green" class="fa fa-check"></i> Correct
+                  Answer <i style="color: blue" class="fa fa-user"></i>Selected
+                  Answer
+                </div>
+
+                <div
+                  class="mt-1"
+                  *ngFor="let currentItem of link.test.questionsList"
+                >
+                  <question-card-preview
+                    [question]="currentItem"
+                    [isTest]="true"
+                    [showAddQuestion]="false"
+                    [isResult]="true"
+                  ></question-card-preview>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

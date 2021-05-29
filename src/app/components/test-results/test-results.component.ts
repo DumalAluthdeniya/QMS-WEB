@@ -41,6 +41,7 @@ export class TestResultsComponent implements OnInit {
       .getLinkByCodeAndEmail(this.link.code, attempt.email)
       .subscribe((res: any) => {
         this.link = res;
+        console.log(this.link);
       });
 
     let questionsList = this.link.test.questionsList;
@@ -65,8 +66,15 @@ export class TestResultsComponent implements OnInit {
     studentSummery.startDate = attempt.startDate;
     studentSummery.finishDate = attempt.finishDate;
 
+    let pointsSum = 0;
+    questionsList.map((q) => {
+      pointsSum += q.points;
+    });
+    studentSummery.totalMarks = pointsSum;
     studentSummery.noOfQuestions = questionsList.length;
+
     studentSummery.correctAnswerCount = attempt.correctQuestions;
+    studentSummery.score = attempt.score;
     studentSummery.inCorrectAnswerCount =
       questionsList.length - attempt.correctQuestions;
 
@@ -78,6 +86,7 @@ export class TestResultsComponent implements OnInit {
         : uniqueAnswers.push(x)
     );
 
+    console.log(uniqueAnswers);
     let correctEasyCount: number = 0;
     let correctMediumCount: number = 0;
     let correctDifficultCount: number = 0;

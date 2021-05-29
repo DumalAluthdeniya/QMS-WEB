@@ -75,7 +75,7 @@ export class AddQuestionFreetextComponent implements OnInit {
             this.toastr.info('Free Text Question Successfully Added');
             this.question = {
               id: 0,
-              givenAnswerId: null,
+              givenAnswerId: -1,
               answers: [],
               points: 0,
               title: '',

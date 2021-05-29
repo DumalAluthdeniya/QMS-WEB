@@ -92,6 +92,8 @@ export class AddQuestionsTruefalseComponent implements OnInit {
 
             this.toastr.info('True/False Question Successfully Added');
             this.question = {};
+            this.question.questionType = 2;
+            this.question.user = localStorage.getItem('userName');
             this.question.answers = [];
             this.question.answers.push({ name: 'True' });
             this.question.answers.push({ name: 'False' });
