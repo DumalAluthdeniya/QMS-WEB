@@ -29,7 +29,7 @@ export class QuizHomePageComponent implements OnInit {
   previoueQuestionId: any;
 
   currentQuestion: any = {};
-  totalQuestions: number;
+  totalQuestions: number = 0;
   linkId: any;
   attempId: any;
   testId: any;

@@ -99,29 +99,55 @@
           >
           </quiz-question>
         </div>
-        <div *ngIf="isSubmitted" class="container">
-          <h3>Thank you. Your Quiz submitted successfully.</h3>
-          <h6>Quiz Results Summery</h6>
+        <div *ngIf="isSubmitted" class="text-center">
+          <h2>Thank you. Your Quiz submitted successfully.</h2>
           <br />
-          <div class="text-left">
-            <p>Total no of questions: {{ answerSummery.totalQuestions }}</p>
-            <p>Total marks: {{ answerSummery.totalMark }}</p>
-            <p>Marks Obtained: {{ answerSummery.marksObtained }}</p>
-            <p>Correct Answers: {{ answerSummery.correctAnswers }}</p>
-            <p>Incorrect Answers: {{ answerSummery.incorrectAnswers }}</p>
+          <br />
+          <h3>Quiz Results Summary</h3>
+        </div>
+        <br />
+        <div
+          style="font-size: larger"
+          *ngIf="isSubmitted"
+          class="d-flex justify-content-center"
+        >
+          <div class="d-flex flex-column">
+            <p>
+              Total no of questions:
+              <strong>{{ answerSummery.totalQuestions }}</strong>
+            </p>
+            <p>
+              Total marks: <strong>{{ answerSummery.totalMark }}</strong>
+            </p>
+            <p>
+              Marks Obtained: <strong>{{ answerSummery.marksObtained }}</strong>
+            </p>
+            <p>
+              Correct Answers:
+              <strong>{{ answerSummery.correctAnswers }}</strong>
+            </p>
+            <p>
+              Incorrect Answers:
+              <strong>{{ answerSummery.incorrectAnswers }}</strong>
+            </p>
+            <p>
+              Duration:
+              <strong>{{ answerSummery.duration }}</strong>
+            </p>
 
             <br />
-            <ul>
+            <h4>Marks Distribution</h4>
+            <ol>
               <li *ngFor="let item of answerSummery.summeryTexts">
                 {{ item }}
               </li>
-            </ul>
+            </ol>
           </div>
-
-          <br />
-
-          <!-- <h6>Your marks will be notified through an e-mail.</h6> -->
         </div>
+
+        <br />
+
+        <!-- <h6>Your marks will be notified through an e-mail.</h6> -->
       </div>
     </div>
   </div>
