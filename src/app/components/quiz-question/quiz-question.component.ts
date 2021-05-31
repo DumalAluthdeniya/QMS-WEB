@@ -97,6 +97,7 @@ export class QuizQuestionComponent implements OnInit {
   }
 
   SubmitQuiz() {
+    this.Next();
     this.submit.emit(true);
   }
 
