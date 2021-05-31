@@ -86,7 +86,6 @@ export class TestResultsComponent implements OnInit {
         : uniqueAnswers.push(x)
     );
 
-    console.log(uniqueAnswers);
     let correctEasyCount: number = 0;
     let correctMediumCount: number = 0;
     let correctDifficultCount: number = 0;
