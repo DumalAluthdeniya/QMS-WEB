@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="validated && !isSubmitted">
+        <div *ngIf="validated && !isSubmitted && showQuizPanel">
           <quiz-question
             (stopwatch)="onStopWatchChange($event)"
             (submit)="onQuizSubmit($event)"
@@ -99,16 +99,19 @@
           >
           </quiz-question>
         </div>
-        <div *ngIf="isSubmitted" class="text-center">
+        <div *ngIf="isSubmitted && !showQuizPanel" class="text-center">
           <h2>Thank you. Your Quiz submitted successfully.</h2>
           <br />
           <br />
           <h3>Quiz Results Summary</h3>
         </div>
         <br />
+        <ngx-spinner type="square-jelly-box" [fullScreen]="false"
+          ><p style="color: white">Loading results...</p></ngx-spinner
+        >
         <div
           style="font-size: larger"
-          *ngIf="isSubmitted"
+          *ngIf="isSubmitted && !showQuizPanel"
           class="d-flex justify-content-center"
         >
           <div class="d-flex flex-column">

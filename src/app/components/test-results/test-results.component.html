@@ -2,7 +2,6 @@
   <div id="body" class="active">
     <app-nav-bar></app-nav-bar>
     <div class="content">
-      <ngx-spinner></ngx-spinner>
       <div class="container-fluid">
         <div class="page-title">
           <h3>
@@ -121,7 +120,9 @@
                   Answer <i style="color: blue" class="fa fa-user"></i>Selected
                   Answer
                 </div>
-
+                <ngx-spinner type="square-jelly-box" [fullScreen]="false"
+                  ><p style="color: white">Loading results...</p></ngx-spinner
+                >
                 <div
                   class="mt-1"
                   *ngFor="let currentItem of link.test.questionsList"

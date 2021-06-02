@@ -5,6 +5,7 @@ import { LinkService } from 'src/app/services/link.service';
 import { QuizService } from 'src/app/services/quiz.service';
 import { formatDate } from '@angular/common';
 import { of } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-quiz-home-page',
@@ -41,12 +42,15 @@ export class QuizHomePageComponent implements OnInit {
   timeLimit: any;
   answerSummery: any;
 
+  showQuizPanel = true;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private linkService: LinkService,
     private quizService: QuizService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -112,7 +116,7 @@ export class QuizHomePageComponent implements OnInit {
             this.testId = link.test.id;
 
             this.questionsList = this.shuffle(link.test.questionsList);
-
+            console.log(this.questionsList);
             this.totalQuestions = this.questionsList.length;
             this.currentQuestion = this.questionsList[0];
             if (this.currentQuestion.randomizeAnswers) {
@@ -237,6 +241,7 @@ export class QuizHomePageComponent implements OnInit {
     } else {
       this.canSubmitQuiz = false;
     }
+    console.log(data);
     this.quizService.addQuizAnswer(data).subscribe((res: any) => {});
   }
 
@@ -270,6 +275,8 @@ export class QuizHomePageComponent implements OnInit {
         }
         if (this.currentQuestion.givenAnswerId != -1)
           this.hasSelectedAnswer = true;
+
+        console.log(this.currentQuestion);
       } else {
         this.canSubmitQuiz = true;
       }
@@ -318,6 +325,8 @@ export class QuizHomePageComponent implements OnInit {
   }
 
   private submitQuiz() {
+    this.showQuizPanel = false;
+    this.spinner.show();
     let submitObj = {
       quizAttemptId: this.attempId,
       finishTIme: formatDate(
@@ -329,6 +338,7 @@ export class QuizHomePageComponent implements OnInit {
     };
 
     this.quizService.submitQuiz(submitObj).subscribe((res: any) => {
+      this.spinner.hide();
       this.isSubmitted = true;
       this.answerSummery = res;
     });

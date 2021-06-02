@@ -116,7 +116,7 @@
                   (focusout)="
                     onItemChange({
                       questionId: question.id,
-                      answer: question.name,
+                      answer: question.answers[0].name,
                       matchingText: $event.target.value || null,
                       givenAnswerId: question.answers[0].id,
                       questionType: question.questionType

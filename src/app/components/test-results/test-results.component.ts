@@ -34,6 +34,7 @@ export class TestResultsComponent implements OnInit {
   }
 
   ShowResultSummery(id: number) {
+    this.spinner.show();
     let studentSummery: any = {};
     let attempt = this.link.quizAttempts.find((qa) => qa.id == id);
 
@@ -41,7 +42,7 @@ export class TestResultsComponent implements OnInit {
       .getLinkByCodeAndEmail(this.link.code, attempt.email)
       .subscribe((res: any) => {
         this.link = res;
-        console.log(this.link);
+        this.spinner.hide();
       });
 
     let questionsList = this.link.test.questionsList;
@@ -80,11 +81,26 @@ export class TestResultsComponent implements OnInit {
 
     const uniqueAnswers = [];
 
-    attempt.quizAnswers.map((x) =>
-      uniqueAnswers.filter((a) => a.questionId == x.questionId).length > 0
-        ? null
-        : uniqueAnswers.push(x)
-    );
+    attempt.quizAnswers.map((x) => {
+      var qType = questionsList.find(
+        (ql) => ql.id == x.questionId
+      ).questionType;
+      if (qType == 3) {
+        var hasIncAns =
+          attempt.quizAnswers
+            .filter((a) => a.questionId == x.questionId)
+            .filter((d) => !d.isAnswerCorrect).length > 0;
+
+        uniqueAnswers.filter((a) => a.questionId == x.questionId).length > 0 ||
+        hasIncAns
+          ? null
+          : uniqueAnswers.push(x);
+      } else {
+        uniqueAnswers.filter((a) => a.questionId == x.questionId).length > 0
+          ? null
+          : uniqueAnswers.push(x);
+      }
+    });
 
     let correctEasyCount: number = 0;
     let correctMediumCount: number = 0;
