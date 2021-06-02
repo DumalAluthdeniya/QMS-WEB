@@ -25,7 +25,7 @@ export class LinkService {
     return this.http.get(this.BaseURI + '/link/code/' + code);
   }
   update(id, link) {
-    return this.http.put(this.BaseURI + '/link/' + id, link);
+    return this.http.post(this.BaseURI + '/link/' + id, link);
   }
   delete(id) {
     return this.http.delete(this.BaseURI + '/link/' + id);

@@ -19,7 +19,7 @@ export class TestService {
     return this.http.get(this.BaseURI + '/test/' + id);
   }
   update(id, test) {
-    return this.http.put(this.BaseURI + '/test/' + id, test);
+    return this.http.post(this.BaseURI + '/test/' + id, test);
   }
   delete(id) {
     return this.http.delete(this.BaseURI + '/test/' + id);

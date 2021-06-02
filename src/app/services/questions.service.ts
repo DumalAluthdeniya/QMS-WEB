@@ -21,7 +21,7 @@ export class QuestionsService {
   }
 
   update(id, question) {
-    return this.http.put(this.BaseURI + '/questions/' + id, question);
+    return this.http.post(this.BaseURI + '/questions/' + id, question);
   }
 
   delete(id) {
