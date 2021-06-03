@@ -1,20 +1,24 @@
 <ngx-spinner></ngx-spinner>
 <div class="wrapper">
-    <div id="body" class="active">
-        <app-nav-bar></app-nav-bar>
-        <div class="content">
-            <div class="container-fluid">
-                <div class="page-title">
-                    <h3>Dashboard</h3>
-                </div>
+  <div id="body" class="active">
+    <app-nav-bar></app-nav-bar>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="page-title">
+          <h3>Dashboard</h3>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12">
+            <div class="card">
+              <div class="card-header">
                 <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col">Latest Test Results</div>
-                                    <div class="col">
-                                        <a href="/tests/new" style="float: right" class="btn btn-primary"><i class="fa fa-plus"></i> New Test</a
+                  <div class="col">Latest Test Results</div>
+                  <div class="col">
+                    <a
+                      href="/tests/new"
+                      style="float: right"
+                      class="btn btn-primary"
+                      ><i class="fa fa-plus"></i> New Test</a
                     >
                   </div>
                 </div>
@@ -69,7 +73,7 @@
                               >
                             </td>
                             <!-- <td>{{ test.averageMark }}</td> -->
-                            <td>{{ test.averageMark }}</td>
+                            <td>{{ test.averageMark | number: "1.2-2" }}</td>
                             <td>{{ test.noOfStudents }}</td>
                             <td>{{ test.noOfQuestions }}</td>
                             <td>

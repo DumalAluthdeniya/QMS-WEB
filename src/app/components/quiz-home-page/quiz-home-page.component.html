@@ -120,10 +120,14 @@
               <strong>{{ answerSummery.totalQuestions }}</strong>
             </p>
             <p>
-              Total marks: <strong>{{ answerSummery.totalMark }}</strong>
+              Total marks:
+              <strong>{{ answerSummery.totalMark | number: "1.2-2" }}</strong>
             </p>
             <p>
-              Marks Obtained: <strong>{{ answerSummery.marksObtained }}</strong>
+              Marks Obtained:
+              <strong>{{
+                answerSummery.marksObtained | number: "1.2-2"
+              }}</strong>
             </p>
             <p>
               Correct Answers:

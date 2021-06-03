@@ -112,6 +112,7 @@
               </div>
               <div *ngIf="question.questionType == 4">
                 <textarea
+                  [(ngModel)]="question.answers[0].givenMatchingText"
                   class="form-control"
                   (focusout)="
                     onItemChange({
@@ -123,8 +124,7 @@
                     })
                   "
                   name="freetext"
-                  >{{ question.answers[0].givenMatchingText }}</textarea
-                >
+                ></textarea>
               </div>
             </div>
           </div>

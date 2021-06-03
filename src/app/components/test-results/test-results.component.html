@@ -41,7 +41,7 @@
                         </td>
 
                         <td>{{ student.startDate | date: "medium" }}</td>
-                        <td>{{ student.score }}</td>
+                        <td>{{ student.score | number: "1.2-2" }}</td>
                         <td>{{ student.duration }}</td>
                       </tr>
                     </tbody>

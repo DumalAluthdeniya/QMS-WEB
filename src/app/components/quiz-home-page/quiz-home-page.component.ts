@@ -65,7 +65,6 @@ export class QuizHomePageComponent implements OnInit {
         this.hasTimeLimit = link.timeLimit > 0;
         this.timeLimit = link.timeLimit;
         this.totalQuestions = link.totalQuestions;
-        console.log(link);
       },
       (err) => {
         alert(err.message);
@@ -116,7 +115,6 @@ export class QuizHomePageComponent implements OnInit {
             this.testId = link.test.id;
 
             this.questionsList = this.shuffle(link.test.questionsList);
-            console.log(this.questionsList);
             this.totalQuestions = this.questionsList.length;
             this.currentQuestion = this.questionsList[0];
             if (this.currentQuestion.randomizeAnswers) {
@@ -241,47 +239,40 @@ export class QuizHomePageComponent implements OnInit {
     } else {
       this.canSubmitQuiz = false;
     }
-    console.log(data);
     this.quizService.addQuizAnswer(data).subscribe((res: any) => {});
   }
 
   onNextClick(data: any) {
-    if (this.hasSelectedAnswer) {
-      let currentNo = this.currentQuestion.currentNo;
-      let index: number = this.questionsList.indexOf(this.currentQuestion);
+    let currentNo = this.currentQuestion.currentNo;
+    let index: number = this.questionsList.indexOf(this.currentQuestion);
 
-      this.questionsList[index].counter = data.counter;
-      this.questionsList[index].timer = data.lapTime;
+    this.questionsList[index].counter = data.counter;
+    this.questionsList[index].timer = data.lapTime;
 
-      let addQuizAnswer = {
-        quizAttemptId: this.attempId,
-        testId: this.testId,
-        questionId: this.currentQuestion.id,
-        duration: data.lapTime,
-      };
+    let addQuizAnswer = {
+      quizAttemptId: this.attempId,
+      testId: this.testId,
+      questionId: this.currentQuestion.id,
+      duration: data.lapTime,
+    };
 
-      this.quizService
-        .addQuizAnswerDuration(addQuizAnswer)
-        .subscribe((res: any) => {});
+    this.quizService
+      .addQuizAnswerDuration(addQuizAnswer)
+      .subscribe((res: any) => {});
 
-      if (this.totalQuestions > index + 1) {
-        this.hasSelectedAnswer = false;
-        this.currentQuestion = this.questionsList[index + 1];
-        this.currentQuestion.currentNo = currentNo + 1;
-        if (this.currentQuestion.randomizeAnswers) {
-          this.currentQuestion.answers = this.shuffle(
-            this.currentQuestion.answers
-          );
-        }
-        if (this.currentQuestion.givenAnswerId != -1)
-          this.hasSelectedAnswer = true;
-
-        console.log(this.currentQuestion);
-      } else {
-        this.canSubmitQuiz = true;
+    if (this.totalQuestions > index + 1) {
+      this.hasSelectedAnswer = false;
+      this.currentQuestion = this.questionsList[index + 1];
+      this.currentQuestion.currentNo = currentNo + 1;
+      if (this.currentQuestion.randomizeAnswers) {
+        this.currentQuestion.answers = this.shuffle(
+          this.currentQuestion.answers
+        );
       }
+      if (this.currentQuestion.givenAnswerId != -1)
+        this.hasSelectedAnswer = true;
     } else {
-      alert('All questions must be answered. You can change the answer later.');
+      this.canSubmitQuiz = true;
     }
   }
 
@@ -348,7 +339,5 @@ export class QuizHomePageComponent implements OnInit {
     alert('Service destroy');
   }
 
-  onStopWatchChange(data) {
-    console.log(data);
-  }
+  onStopWatchChange(data) {}
 }

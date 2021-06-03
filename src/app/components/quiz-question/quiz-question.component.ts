@@ -44,7 +44,6 @@ export class QuizQuestionComponent implements OnInit {
     this.counter = this.question.counter;
     this.running = true;
     this.startTimer();
-
     this.matchingTextList = [];
     if (this.question.questionType == 3) {
       this.question.answers.map((a: any) => {
@@ -143,6 +142,5 @@ export class QuizQuestionComponent implements OnInit {
 
   ngOnDestroy() {
     let lapTime = '00:' + this.minutes + ':' + this.seconds;
-    console.log(lapTime);
   }
 }
